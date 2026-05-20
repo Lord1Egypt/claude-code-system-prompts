@@ -1,7 +1,7 @@
 <!--
 name: 'Data: Anthropic CLI'
 description: Reference documentation for the ant CLI covering installation, authentication, command structure, input and output shaping, managed agents workflows, and scripting patterns
-ccVersion: 2.1.118
+ccVersion: 2.1.145
 -->
 # Anthropic CLI (`ant`)
 
@@ -41,7 +41,7 @@ Auth is `ANTHROPIC_API_KEY` from the environment. Override the host with `ANTHRO
 ant <resource>[:<subresource>] <action> [flags]
 ```
 
-Beta resources (agents, sessions, environments, deployments, skills, vaults, memory stores) live under `beta:` — the CLI auto-sends the right `anthropic-beta` header, so don't pass it yourself unless overriding with `--beta <header>`.
+Beta resources (agents, sessions, environments, deployments, skills, vaults, memory stores) live under `beta:` — the CLI auto-sends the right `anthropic-beta` header, so don't pass it yourself unless overriding with `--beta <header>`. For self-hosted environments, `ant beta:worker poll/run` and `ant beta:environments:work stats/stop` drive and monitor the work queue — see `shared/managed-agents-self-hosted-sandboxes.md`.
 
 ```sh
 ant models list

@@ -1,7 +1,7 @@
 <!--
 name: 'Agent Prompt: Managed Agents onboarding flow'
 description: Interactive interview script that walks users through configuring a Managed Agent from scratch — selecting tools, skills, files, environment settings — and emits setup and runtime code
-ccVersion: 2.1.142
+ccVersion: 2.1.145
 -->
 # Managed Agents — Onboarding Flow
 
@@ -13,11 +13,11 @@ Use this when a user wants to set up a Managed Agent from scratch. Three steps: 
 
 ---
 
-Claude Managed Agents is a hosted agent: Anthropic runs the agent loop on its orchestration layer and provisions a sandboxed container per session where the agent's tools execute. You supply the agent config and the environment config; the harness — event stream, sandbox orchestration, prompt caching, context compaction, and extended thinking — is handled for you.
+Claude Managed Agents is a hosted agent: Anthropic runs the agent loop on its orchestration layer and provisions a sandboxed container per session where the agent's tools execute (or, with a `self_hosted` environment, your own worker runs the tools — see `shared/managed-agents-self-hosted-sandboxes.md`). You supply the agent config and the environment config; the harness — event stream, sandbox orchestration, prompt caching, context compaction, and extended thinking — is handled for you.
 
 **What you supply:**
 - **An agent config** — tools, skills, model, system prompt. Reusable and versioned.
-- **An environment config** — the sandbox your agent's tools execute in (networking, packages). Reusable across agents.
+- **An environment config** — the sandbox your agent's tools execute in (`cloud`: networking, packages; or `self_hosted`: your own infra). Reusable across agents.
 
 Each run of the agent is a **session**.
 
