@@ -1,7 +1,7 @@
 <!--
 name: 'Data: Claude API reference — TypeScript'
 description: TypeScript SDK reference including installation, client initialization, basic requests, thinking, and multi-turn conversation
-ccVersion: 2.1.170
+ccVersion: 2.1.176
 -->
 # Claude API — TypeScript
 
@@ -209,7 +209,7 @@ If `cache_read_input_tokens` is zero across repeated identical-prefix requests, 
 const response = await client.messages.create({
   model: "{{OPUS_ID}}",
   max_tokens: 16000,
-  thinking: { type: "adaptive" },
+  thinking: { type: "adaptive", display: "summarized" }, // display opt-in: default is omitted (empty thinking text) on Fable 5 / Mythos 5 / Opus 4.8 / 4.7
   output_config: { effort: "high" }, // low | medium | high | max
   messages: [
     { role: "user", content: "Solve this math problem step by step..." },
@@ -338,10 +338,42 @@ When `stop_reason` is `"refusal"`, the response includes a `stop_details` object
 
 ```typescript
 if (response.stop_reason === "refusal" && response.stop_details) {
-  console.log(`Category: ${response.stop_details.category}`); // "cyber" | "bio" | null
+  console.log(`Category: ${response.stop_details.category}`); // e.g. "cyber", "bio", "reasoning_extraction", "frontier_llm", or null — see docs for the full set
   console.log(`Explanation: ${response.stop_details.explanation}`);
 }
 ```
+
+### Refusal Fallbacks ({{FABLE_NAME}}) — opt in by default
+
+Fallbacks are **opt-in**: without them a refused request simply stops. Include the server-side `fallbacks` parameter in `{{FABLE_ID}}` code by default — on a policy decline the API re-runs the same request on the fallback model inside the same call. A decline before any output isn't billed (a mid-stream decline bills the streamed partial); the rescue bills at the fallback model's own rates, with cache repricing applied automatically.
+
+```typescript
+const response = await client.beta.messages.create({
+  model: "{{FABLE_ID}}",
+  max_tokens: 16000,
+  betas: ["server-side-fallback-2026-06-01"],
+  fallbacks: [{ model: "{{OPUS_ID}}" }],
+  messages: [{ role: "user", content: "..." }],
+});
+
+// Switch points: one fallback block per model that ran and declined this turn
+for (const block of response.content) {
+  if (block.type === "fallback") {
+    console.log(`${block.from.model} declined; ${block.to.model} continued`);
+  }
+}
+
+// Served-by signal — covers sticky turns, which carry no fallback block.
+// Pair with stop_reason: the fallback model can itself refuse.
+const fallbackRan = (response.usage.iterations ?? []).some(
+  (entry) => entry.type === "fallback_message",
+);
+if (fallbackRan && response.stop_reason !== "refusal") {
+  console.log(`Served by ${response.model}`);
+}
+```
+
+A `stop_reason: "refusal"` on the final response means the whole chain refused. The header must be exactly `server-side-fallback-2026-06-01`; the parameter is rejected on the Batches API and unavailable on Amazon Bedrock, Vertex AI, and Microsoft Foundry — register the client-side `betaRefusalFallbackMiddleware` on the client there instead. Full semantics (sticky routing, billing, streaming, echoing fallback turns back): `shared/model-migration.md` → Migrating to {{FABLE_NAME}} → `refusal` stop reason.
 
 ---
 
