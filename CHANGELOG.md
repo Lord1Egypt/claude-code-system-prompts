@@ -4,6 +4,68 @@ Note: Only use **NEW:** for entirely new prompt files, NOT for new additions/sec
 
 ### Claude Code System Prompts Changelog
 
+# [2.1.195](https://github.com/Piebald-AI/claude-code-system-prompts/commit/7b9ccd1)
+
+_+12,157 tokens_
+
+- Agent Prompt: Context tip selector — Notes that the user message now also includes `<ineligible_ids>` alongside `<eligible_ids>`, and instructs the selector to pick a `feature_id` only from eligible_ids, since an ineligible id has been vetoed for a reason the transcript cannot show and will be discarded.
+- Agent Prompt: Security monitor for autonomous agent actions (second part) — Greatly expands the environment scope and rule set. Reworks the Environment section to distinguish trust slots (default to nothing trusted, keeping data-flow and code-execution rules most restrictive) from sensitivity slots (default to a broad solo-developer heuristic), and adds internal package registry, PII/regulated-data location, sensitive remote target, and protected IaC scope slots. Defines cluster-write operations and the Chrome-MCP browser surface; requires HARD-block reasons to name the rule and suggest re-running outside auto mode; extends force-push blocking to deleting remote tags and releases; and broadens cloud-storage mass delete to cover dropping or truncating data stores. Adds soft-block rules for sensitive remote exec, merging without review, self-approval, ChatOps trigger comments, feature-flag writes, node lifecycle operations, cluster-wide workload creation, and browser navigate/input/JS/file-upload/shortcut exfiltration. Adds allow exceptions for security discussion, session-created job cleanup, trusted internal infrastructure data flow, multi-agent coordination, and trusted browser navigation; adds a production-precedence note; and tightens the transient-retry exception to also require that responses not return credentials, secrets, or PII.
+- **NEW:** Data: Claude Code gateway protocol — Adds a Markdown wire-contract reference for how the Claude Code CLI talks to a gateway, covering OAuth 2.0 device-flow sign-in, RFC 8414 discovery, Messages API inference, managed settings, model discovery, OTLP telemetry, error envelopes, TLS certificate pinning, and proxying to Amazon Bedrock, Google Vertex, and Microsoft Foundry.
+- **NEW:** Data: Claude gateway landing page — Adds the HTML status page served at a gateway root, showing the gateway ASCII logo, the running gateway URL, the identity-provider host, an OAuth discovery link, and the gateway version.
+- **NEW:** Data: Gateway device code entry page — Adds the HTML device-verification page that prompts the user to enter the short device code Claude Code displays so they can sign in through their company identity provider.
+- **NEW:** Tool Description: Background monitor WebSocket source — Adds an addendum documenting the background monitor's `ws` source, which opens a WebSocket and streams each incoming text frame as one notification event instead of running a shell command, with notes on binary frames, socket close codes, and the same rate limiting as bash.
+
+# [2.1.193](https://github.com/Piebald-AI/claude-code-system-prompts/commit/10261ed)
+
+_+4,615 tokens_
+
+- **NEW:** Agent Prompt: Fleet agent suggestion scope personalization — Adds a fleet-agent scope personalizer that narrows three generic coding task scopes using recently merged PR titles, files, and bodies, returning JSON-only 2-6 word scope phrases or empty fallbacks.
+- Agent Prompt: Security monitor for autonomous agent actions (second part) — Replaces the public-surface blocking rule with public data-sharing upload coverage for `gh gist create`/`edit`, including secret gists, `gh repo create` via the web UI so a human chooses org and visibility, and public paste/diagram/data-sharing services.
+- Agent Prompt: Status line setup — Tweaks the repository `host` example comment in the status-line JSON schema from a quoted string example to unquoted `github.com` wording.
+- Data: Managed Agents endpoint reference — Updates agent-create model shorthand guidance to use the current Opus model ID in full config objects and documents fast mode across Opus 4.8, 4.7, and 4.6, with Opus 4.8 as the durable tier and distinct deprecation behavior for 4.6 and 4.7.
+- Skill: Artifact design — Adds a `dataviz-callout` marker before the design-process section.
+- Skill: Building LLM-powered applications with Claude — Updates fast-mode guidance to include Opus 4.6 alongside Opus 4.8 and 4.7, mark both 4.6 and 4.7 fast mode as deprecated with different removal behavior, and preserve caller-chosen fast-mode model strings while flagging deprecation.
+- Skill: Model migration guide — Updates migration guidance for `-fast` model variants, treating Opus 4.8 as the durable fast-mode target, leaving existing Opus 4.6 fast strings unchanged with a deprecation comment, and warning not to migrate to deprecated Opus 4.7 fast mode.
+- System Reminder: Async agent launched — Removes the fallback instruction to work on non-overlapping tasks or briefly report the launched agent and end the response, leaving only the warning not to duplicate the async agent's files or topics.
+- Tool Description: Artifact — Adds guidance to include a one-sentence `<meta name="description">` so artifact gallery cards get a subtitle.
+
+# [2.1.191](https://github.com/Piebald-AI/claude-code-system-prompts/commit/a52517c)
+
+_+59 tokens_
+
+- **NEW:** Agent Prompt: Context tip selector — Adds a selector for deciding when a brief Claude Code feature tip would help, defaulting to silence unless the transcript shows a repeated friction pattern, an eligible matching tip, and a non-interruptive moment.
+- **NEW:** Agent Prompt: Context tip reception evaluator — Adds follow-up evaluation for shown context tips, tracking whether the user acted on the suggested command or feature and whether the reception was positive, neutral, negative, or unknown.
+- **NEW:** Data: Context tip situations (manual polling, persistent memory) — Adds catalog situations for suggesting `/loop` when the user is manually polling status and memory guidance when the user keeps restating durable project context or explicitly asks Claude to remember it.
+- **REMOVED:** Memory prompts and reminders — Removes the standalone memory synthesis/pruning agent prompts, memory-file description and staleness guidance fragments, recalled-memory handling guidance, stale project-memory refresh guidance, and immutable memory extraction/consolidation tool-constraint reminders.
+
+#### [2.1.190](https://github.com/Piebald-AI/claude-code-system-prompts/commit/2c86a14)
+
+<sub>_No changes to the system prompts in v2.1.190._</sub>
+
+# [2.1.187](https://github.com/Piebald-AI/claude-code-system-prompts/commit/f5a21b2)
+
+_+9,726 tokens_
+
+- **REMOVED:** System Reminder: Verify plan reminder — Removes the post-plan reminder that told agents to call a direct verification tool after completing a plan.
+- Agent Prompt: Explore; System Prompt: Plan vs memory guidance — Add the Artifact tool to the disallowed tool lists for read-only exploration and planning agents, keeping those agents from publishing artifacts.
+- Skill: Artifact design — Reworks the Artifact design skill from frontend-interface guidance into broader artifact guidance that calibrates treatment for documents, memos, demos, landing pages, games, apps, and tools; adds fundamentals for typography, neutral palettes, layout, copy, UI information design, and avoiding templated AI-generated design defaults.
+- Skill: Design sync — Updates authorization-error guidance to relay the DesignSync tool's environment-aware message verbatim, including headless-session paths, before retrying after the user acts on it.
+- System Prompt: Agent thread notes — Clarifies that agents should return reports, summaries, findings, and analysis directly in their final response, while files written as input to another tool are still allowed.
+- Tool Description: Artifact — Strengthens the Artifact flow so agents must load the artifact-design skill before writing the page, using it to calibrate how much design investment the request warrants.
+
+# [2.1.186](https://github.com/Piebald-AI/claude-code-system-prompts/commit/67e026b)
+
+_+4,485 tokens_
+
+- Agent Prompt: /review slash command — Replaces the older `/review-pr` flow with a PR-diff-only GitHub review prompt that gathers context through `gh pr view` and `gh pr diff`, applies optional user instructions, uses the medium-effort code-review prompt, and presents verified findings instead of raw JSON.
+- **NEW:** Agent Prompt: Security monitor edit-removal guidance — Adds reusable guidance for judging Edit/NotebookEdit removals, including truncated or invisible deleted content, failed edit outcomes, `ignored_source`, and `replaceAll` edits.
+- **NEW:** Data: Claude Code agent proxy troubleshooting guide — Adds troubleshooting guidance for Claude Code's policy-enforcing HTTPS agent proxy, covering CA-bundle trust setup, status checks, git/JVM/Docker fixes, unsupported traffic, and reporting policy denials instead of bypassing proxy or TLS controls.
+- **NEW:** Tool Description: ReadMcpResourceDirTool prompt — Adds the MCP directory resource listing tool prompt, documenting required `server`/`uri` parameters, non-recursive direct-child listings, subdirectory descent via returned URIs, and server support requirements.
+- Agent Prompt: Security monitor for autonomous agent actions — Narrows the classifier to destructive, hard-to-undo, or security-relevant actions, limits user-boundary blocks to BLOCK-rule territory, drops false/misleading-content as a security block, broadens workload deletion/cancellation coverage, adds a transient-retry allow exception, and requires blocked reasons to cite the exact matching rule.
+- Data: Tool use concepts; Data: Tool use reference — TypeScript; Skill: Building LLM-powered applications with Claude; and Skill: Model migration guide — Updates Agent Skills/code-execution examples and migration guidance from `code_execution_20250825` to `code_execution_20260521`.
+- System Prompt: Coordinator mode orchestration — Adds a worker-approval pattern that spawns a fresh worker for user-approved shell commands, API calls, file mutations, posts, and deploys instead of relaying consent back to the preparing worker, with prompts limited to the exact approved action and continuation examples updated to include `summary`.
+- Tool Description: SendMessageTool — Makes the legacy shutdown/plan-approval JSON protocol-response section conditional, so it can be omitted while preserving core teammate messaging guidance.
+
 # [2.1.185](https://github.com/Piebald-AI/claude-code-system-prompts/commit/98e4fe2)
 
 _-660 tokens_
