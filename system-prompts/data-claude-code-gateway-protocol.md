@@ -1,7 +1,7 @@
 <!--
 name: "Data: Claude Code gateway protocol"
 description: "Markdown reference documenting the Claude Code gateway wire contract, including OAuth 2.0 device flow, RFC 8414 discovery, Messages API inference, managed settings, model discovery, OTLP telemetry, error envelopes, TLS certificate pinning, and proxying to Bedrock, Vertex, and Foundry"
-ccVersion: "2.1.211"
+ccVersion: "2.1.275"
 -->
 # Claude Code gateway protocol
 
@@ -41,9 +41,17 @@ the client does not follow cross-origin redirects.
 `GET /.well-known/oauth-authorization-server` (unauthenticated)
 
 RFC 8414 authorization server metadata. The client reads
-`device_authorization_endpoint` and `token_endpoint` and ignores the rest;
-both must be same-origin with `{base}`. `authorization_endpoint` is
-intentionally absent.
+`device_authorization_endpoint` and `token_endpoint` and, when present,
+`revocation_endpoint`, and ignores the rest; all must be same-origin with
+`{base}`. With a `revocation_endpoint`, sign-out sends
+`POST {revocation_endpoint}` form-encoded with `token=<bearer>` and, when
+you issued a refresh token, a second request with `token=<refresh_token>`
+and `token_type_hint=refresh_token` (RFC 7009, no client authentication,
+best effort); answer directly, the client follows no redirect here. A client
+signed in before you advertised `revocation_endpoint` reads the metadata
+again at sign-out. Answer a revoked bearer's next request with `401` and
+`x-should-retry: false` (see Errors).
+`authorization_endpoint` is intentionally absent.
 
     {
       "issuer": "https://gw.corp.example.com",
@@ -54,7 +62,8 @@ intentionally absent.
 
 ## Device authorization — required
 
-`POST {device_authorization_endpoint}` (unauthenticated)
+`POST {device_authorization_endpoint}` (unauthenticated; answer directly, the
+client follows no redirect here)
 
 RFC 8628 §3.2. The client opens `verification_uri_complete` in the user's
 browser and polls `token_endpoint` every `interval` seconds.
@@ -71,6 +80,13 @@ browser and polls `token_endpoint` every `interval` seconds.
 `device_code` should be >=256 bits, opaque, single-use. `user_code` should
 use a base-20 charset (RFC 8628 §6.1).
 
+The request body is form-encoded and may carry one extension parameter next
+to RFC 8628 §3.1's: `surface`, a stable identifier of the client application
+that is signing in. Claude Code sends `surface=claude_code`. Record it if you
+attribute sessions by client; otherwise ignore it, as OAuth servers do for
+any parameter they do not recognize (RFC 6749 §3.1, §3.2). Claude Code also sends `User-Agent: claude-code/<version>` on
+the metadata, device, token, refresh and revoke requests.
+
 ## Verification page — required
 
 `GET/POST {verification_uri}` (browser-facing; the client never calls this)
@@ -83,13 +99,14 @@ per-IP rate limit (RFC 8628 §5.1) and don't auto-submit a pre-filled code
 ## Token — required
 
 `POST {token_endpoint}` (unauthenticated,
-`application/x-www-form-urlencoded`)
+`application/x-www-form-urlencoded`; answer directly, the client follows no
+redirect here)
 
 **Device grant** (`grant_type=urn:ietf:params:oauth:grant-type:device_code`):
 
 | Status | Body | Client reaction |
 |---|---|---|
-| 200 | `{"access_token","token_type":"Bearer","expires_in","refresh_token"?}` | Login complete. `refresh_token` is optional; omit it and the client re-runs the device flow on expiry. |
+| 200 | `{"access_token","token_type":"Bearer","expires_in","refresh_token"?,"email"?}` | Login complete. `refresh_token` is optional; omit it and the client re-runs the device flow on expiry. `email` is an extension: the account that approved the code. When present and non-blank, the client shows it and asks the user to confirm it before storing the credential, then shows it in `/status`. |
 | 400 | `{"error":"authorization_pending"}` | Keep polling. |
 | 400/429 | `{"error":"slow_down"}` | Add 5s to the poll interval. |
 | 400 | `{"error":"access_denied"}` | Stop. |
@@ -140,7 +157,13 @@ back to the client's built-in list.
 `POST /v1/metrics`, `/v1/logs`, `/v1/traces` (bearer)
 
 OTLP/HTTP (protobuf or JSON). When connected to a gateway the client sends
-telemetry here and ignores `OTEL_EXPORTER_OTLP_*` env vars. Return `200`
+telemetry here and ignores `OTEL_EXPORTER_OTLP_*` env vars, with one
+exception: when your own `/managed/settings` document names an OTLP endpoint
+on another host (https, or http to loopback, at a collector's
+`…/v1/<signal>` path) and nothing has overridden it, the
+client exports there as an ordinary managed install (set the protocol and
+headers in the same document; where it does not, the developer's apply) and
+never sends the gateway bearer to it. Return `200`
 whether you forward or discard — `404` makes the client's exporter log an
 error on every flush.
 
@@ -155,13 +178,63 @@ the SDK surfaces the message to the user:
 | HTTP | error.type | Use for |
 |---|---|---|
 | 400 | `invalid_request_error` | Denied model, malformed body, policy violation |
-| 401 | `authentication_error` | Missing/expired/invalid bearer; client prompts re-login |
+| 401 | `authentication_error` | Missing/expired/invalid bearer; client prompts re-login. Send `x-should-retry: false` with it for a revoked or expired bearer so the prompt is immediate; without the header the client retries with backoff for about three minutes first |
 | 403 | `permission_error` | Authenticated but not allowed |
 | 413 | `request_too_large` | Body over your cap |
 | 429 | `rate_limit_error` | Throttling; include `Retry-After` |
+| 429 | `billing_error` | The user's own cap on your gateway is reached; see Usage-limit headers below |
 | 501 | `not_supported` | Endpoint not available on this backend |
 | 529 | `overloaded_error` | Upstream at capacity; client backs off and retries |
 | 5xx | `api_error` | Anything else |
+
+## Usage-limit headers — optional
+
+If you enforce a per-user spend or usage cap, report the caller's standing
+against it on each successful `POST /v1/messages` response and Claude Code
+(2.1.225 and later, when signed in to a gateway) shows its usual "You've used
+NN% of your usage credits · resets …" notice past 75% and again past 95%.
+These are the same `anthropic-ratelimit-unified-*` headers api.anthropic.com
+sends its subscribers, so strip the upstream's own `anthropic-ratelimit-*`
+response headers first — otherwise your org-wide quota reaches users as if it
+were theirs. Send none of these for a user with no cap.
+
+| Header | Value |
+|---|---|
+| `anthropic-ratelimit-unified-status` | `allowed`, or `allowed_warning` once past a threshold |
+| `anthropic-ratelimit-unified-representative-claim` | `overage` — the window-agnostic claim; `5h`/`7d` mean rolling 5-hour/7-day windows the client does time math on, so don't borrow them for a calendar budget |
+| `anthropic-ratelimit-unified-overage-status` | Same value as `-status` |
+| `anthropic-ratelimit-unified-overage-utilization` | Fraction of the cap used, two decimals, kept below `1` while you're still allowing requests (`0.82`) |
+| `anthropic-ratelimit-unified-overage-surpassed-threshold` | `0.75` or `0.95` once utilization passes it — this header is what triggers the client's notice; omit it below 75% |
+| `anthropic-ratelimit-unified-reset`, `-overage-reset` | When the cap resets, Unix seconds |
+
+When the cap is reached, reject `POST /v1/messages` before proxying:
+
+    HTTP/1.1 429
+    retry-after: 37800
+    x-should-retry: false
+    anthropic-ratelimit-unified-status: rejected
+    anthropic-ratelimit-unified-reset: 1786147200
+    anthropic-ratelimit-unified-overage-reset: 1786147200
+    anthropic-ratelimit-unified-overage-utilization: 1
+    anthropic-ratelimit-unified-overage-surpassed-threshold: 1
+    anthropic-ratelimit-unified-overage-period: daily
+    anthropic-ratelimit-unified-overage-disabled-reason: org_spend_cap_reached
+
+    {"type":"error","error":{"type":"billing_error","message":"spend limit reached (daily; resets 2026-08-08 00:00 UTC) — request an increase at https://go.corp.example.com/claude-limits"}}
+
+Leave `representative-claim` and `overage-status` off the 429. With them the
+client composes its own "You've hit your limit" line and drops your message;
+without them it prints `error.message` as-is (older clients too, behind a
+generic "API Error" prefix), so put the period, the reset time, and what the
+user should do next in that one sentence. `retry-after` is seconds until the
+reset; `x-should-retry: false` keeps the SDK from retrying into the block. If
+you can't read your counter and choose to fail closed, send the 429 with
+`x-should-retry: false`,
+`anthropic-ratelimit-unified-overage-disabled-reason: fetch_error`, and a
+message, nothing else. This gateway sends exactly the shapes above for caps
+set through its admin API (`overage-period` is `daily`, `weekly`, or
+`monthly`); when several caps apply it describes the fullest one, or once
+blocked the one that resets last.
 
 ## Bearer token
 
@@ -187,7 +260,8 @@ confirmation prompt.
 - Fixed-path endpoints are resolved against `{base}`, never a redirect.
 - Every request body carries `Content-Length`.
 - The OTLP exporter is locked to `{base}/v1/{signal}` regardless of the
-  user's environment.
+  user's environment; only your own `/managed/settings` document can name a
+  different collector, and the gateway bearer is never sent to it.
 - `404` from `/v1/models` or `/managed/settings` is a clean "not
   implemented", with no retry storm.
 
@@ -205,17 +279,23 @@ provider's Claude endpoint needs translation:
   accept the header.
 - **Streaming.** Bedrock's native stream is AWS binary event-stream, not SSE;
   decode and re-emit Anthropic-shaped `text/event-stream`. The provider SDKs
-  handle this.
+  handle this, but their stream iterators drop the upstream's `ping` events
+  (and Bedrock sends none) — emit your own `event: ping` during silent gaps
+  so long thinking pauses don't trip client or proxy idle timeouts.
 - **`count_tokens`.** Bedrock has no count-tokens API. Return
-  `501 not_supported`; the client falls back to a Haiku `max_tokens:1` probe.
+  `501 not_supported`; the client counts with a one-token request (the
+  session's model unless `ANTHROPIC_SMALL_FAST_MODEL` or
+  `ANTHROPIC_DEFAULT_HAIKU_MODEL` is set).
 - **Headers.** Forward `content-type`, `accept`, `accept-encoding`,
   `anthropic-version`, `anthropic-beta`, `user-agent`, and `x-stainless-*`;
   strip the client's `Authorization` and apply the upstream's own
   credentials. On the response, strip hop-by-hop headers
   (`content-encoding`, `content-length`, `transfer-encoding`, `connection`).
 - **Errors.** Upstream error messages can carry your cloud account
-  IDs/ARNs/project IDs — log them for the operator, return a generic
-  message, but keep `error.type` so the client's retry logic still works.
+  IDs/ARNs/project IDs — log them for the operator and return a generic
+  message, keeping `error.type`. The exception is a 400/413 in Anthropic's
+  own error envelope (e.g. `prompt is too long: …`): relay that
+  `error.message`, the client's recovery (auto-compact etc.) keys on it.
 
 ## References
 

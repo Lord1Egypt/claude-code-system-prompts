@@ -4,6 +4,763 @@ Note: Only use **NEW:** for entirely new prompt files, NOT for new additions/sec
 
 ### Claude Code System Prompts Changelog
 
+#### [2.1.278](https://github.com/Piebald-AI/claude-code-system-prompts/commit/5ba38bd)
+
+<sub>_No changes to the system prompts in v2.1.278._</sub>
+
+# [2.1.277](https://github.com/Piebald-AI/claude-code-system-prompts/commit/4507665)
+
+_+5,234 tokens_
+
+- **NEW:** Data: SDK frame_received_wall_ms field — Records when a triggering send's frame arrived over the session server's SSE stream, separating transit from queue wait.
+- **NEW:** Data: Turn handoff available event schema — A cloud worker announces its turn-handoff tools and options once after registering; readers keep only the newest worker life's entry.
+- **NEW:** Skill: /plugin-types tsconfig setup — Points a plugin's tsconfig or jsconfig at the generated declarations, names the compiler options, and validates the plugin as the engine reads it.
+- **NEW:** System Reminder: Directory sync attached machine guidance — The checkout now syncs files with a machine of the user's while staying the session's own; their arriving work must not be reset or absorbed.
+- **NEW:** System Reminder: Directory sync snapshot commit reset — Warns that the work branch points at one of sync's own bookkeeping snapshots, and to reset only when the session caused it.
+- **NEW:** System Reminder: Remote machine branch transfer review — Work crosses between copies only by pushing a branch and reviewing it by full commit id, flagging agent-config, submodule and checkout-time hazards.
+- **NEW:** System Reminder: Remote machine separate project copies — The session's own checkout is primary and the folder on the user's machine is a separate, unsynced copy; reports must say which.
+- **NEW:** System Reminder: Still-running tool call — A call still loading while the user's new message is answered; its result arrives later and must not be repeated or described as cancelled.
+- **NEW:** Tool Description: FetchInboxMessage project thread wake envelope — Appended when the relaying thread is a project thread: only the triggering human element is the request, everything else quoted is context.
+- **NEW:** Tool Description: SuggestPluginInstall — Renders an inline card for catalog plugins that could take the task over, drawn from a search first and skipped when nothing relevant returns.
+- **NEW:** Tool Parameters: Artifact auto-open timing (both wordings) — `auto_open: "after_first_write"` delays opening a type-based Artifact until its first write, so the user never first sees it empty.
+- Agent Prompts: Claude Test explorer and author — Bar the source mapper and the spec-draft author from the Claude Test browser plugin's `claude_test_app_up` tool as well.
+- Data: Structured usage rate-limit rows field — Carries only the server's current reply, so the header-derived fallback row and earlier snapshots no longer appear here.
+- Skill: Setup Cowork — Falls back to the productivity plugin only after a `productivity` search returns one, skipping the recommendations widget when nothing comes back.
+- Tool Description: Artifact type discovery guidance — Drops `type_query` from the first `list_types` call and extends the `auto_open` hint to a next step that writes the type's store.
+- Tool Description: Publish audience-facing deliverables (app wording) — Publishes when a destination such as a channel or meeting is named, and keeps verdict-only answers in the terminal only when no other reader is named.
+- Tool Descriptions: Artifact action reference (both wordings) — The `read` action names both claude.ai artifact link forms and claims them, so Claude reads them there rather than through WebFetch or curl.
+- Tool Descriptions: Artifact quickstart and type discovery guidance (both wordings) — Treat a design system as something the user can ask to have made, built from a listed Design System type, with a files-in-codebase alternative mentioned.
+- Tool Descriptions: Artifact quickstart and type discovery guidance (both wordings) — Answer a question about the user's design system by listing that type's artifacts and reading one, checking their files before reporting none.
+- Tool Descriptions: Artifact quickstart and type discovery guidance (both wordings) — A deck to be emailed or attached is not a request for a file format; one made from the Slides type downloads as .pptx or PDF.
+- Tool Descriptions: WebFetch (concise) and WebFetch private URL warning — The claude.ai artifact-link exception is no longer fixed text; a handling mode now selects the note shown beside the private-URL rule.
+
+#### [2.1.276](https://github.com/Piebald-AI/claude-code-system-prompts/commit/d76741e)
+
+<sub>_No changes to the system prompts in v2.1.276._</sub>
+
+# [2.1.275](https://github.com/Piebald-AI/claude-code-system-prompts/commit/df21f9c)
+
+_-1,237 tokens_
+
+- **NEW:** Data: MCP server status error_code field — Names the host-fixable reasons a server failed: a rejected claude.ai connector login, a rejected first-party credential, or pending project approval.
+- **NEW:** Data: Turn handoff memory_context field — Hands the client's claude.ai memory snapshot to the worker as an attachment line; a malformed or colliding one is ignored, never refused.
+- **NEW:** System Prompt: Artifact commenter access guidance — The owner, editor or commenter word before a comment's stamp is context for weighing feedback, never a permission.
+- **NEW:** System Reminder: Nested instruction file contents — Frames a nested CLAUDE.md or AGENTS.md found below the session's working directory by path when one is attached.
+- **NEW:** Tool Description: Artifact asset upload guidance — Uploads a local file to an artifact's asset store with `asset: true`, batching several under one approval via `file_paths`.
+- **REMOVED:** System Prompt and Tool Description: REPL — Retires the JavaScript runner that looped, branched and composed tool calls, along with its dense-scripting and batching conventions.
+- **REMOVED:** System Reminders: AGENTS.md project instructions and nested contents — Folded into the type-labeled memory reminder and the new nested instruction-file reminder, which covers CLAUDE.md and AGENTS.md alike.
+- Agent Prompts: Claude Test explorer and author — Bar both the source mapper and the spec-draft author from the Claude Test browser plugin's `claude_test_allow` tool.
+- Data: Claude Code agent proxy troubleshooting guide — JVM builds now use the JDK's own truststore when the system trust install already added the proxy CA, otherwise the generated p12.
+- Data: Claude Code gateway protocol — Adds optional `revocation_endpoint` sign-out, an `email` on the token response confirmed before storing, and immediate re-login on a revoked bearer.
+- Skill: Claude Test sign-in — Signs in once before a run and saves the browser session instead of mid-spec, re-establishing it with `ct-auth.mjs sign-in`; account-needing specs otherwise report blocked.
+- Skill: Update config settings file locations — Documents that `permissions` path rules use `Edit(path)` for every file-writing tool and `Read(path)` for reads, leaving `Write(path)`, `NotebookEdit(path)` and `Glob(path)` unmatched.
+- System Reminder: Memory file contents — Labels each loaded file by type: checked-in project instructions, private project or global instructions, auto-memory, or organization-managed policy.
+- Tool Description: Artifact assets guidance (app wording) — Adds batched `file_paths` asset uploads under one approval, with a text file still uploaded in a call of its own.
+- Tool Descriptions: Artifact action reference (both wordings) and Tool Parameter: Artifact url guidance — A shared artifact can be updated when a read reports "writer" access; cross-organization artifacts may be missing from listings.
+- Tool Descriptions and Skill: Artifact icon guidance (publishing, page implementation, action reference, design skill, document) — Replace the required emoji `favicon` with a required one-word `icon` for the browser-tab icon.
+- Tool Parameters: Artifact supporting files with cross-artifact sources (both wordings) and Tool Description: Artifact assets guidance (app wording) — Drop the same-organization requirement on copied source artifacts; any artifact the person can open qualifies.
+
+# [2.1.274](https://github.com/Piebald-AI/claude-code-system-prompts/commit/8d31f14)
+
+_+6,153 tokens_
+
+- **NEW:** Agent Prompts: Claude Test explorer and author — Add the Claude Test plugin's read-only source mapper, barred from credential files and paths above the project, and its background spec-draft author.
+- **NEW:** Data: Chrome browser hints control request — Tells a session which connected Claude in Chrome browser to prefer; hints are session-only and never override the live relay roster.
+- **NEW:** Data: Claude Test spec file format — Documents the Markdown specs in `.claude-test/specs/`: front matter, the three required parts, data-creating specs, and criteria checkable from one end screenshot.
+- **NEW:** Data: Gateway ignored X-Forwarded-For warning — Warns that an untrusted client address made the gateway ignore `X-Forwarded-For`, collapsing sign-in rate limits and audit addresses onto the proxy.
+- **NEW:** Data: Hook mcp_server field — Reports the MCP server behind an `mcp__*` tool and requires trust to key on its source, never its name or tool-name prefix.
+- **NEW:** Data: SDK API error kind field — Documents typed `api_error` kinds so consumers key on the cause, with each kind's meaning for replaying, rewinding, or remedying a request.
+- **NEW:** Data: SDK footer indicator schema — Describes the operator-set status pill delivered on `system/init` and `initialize` so host UIs render what the terminal footer shows.
+- **NEW:** Data: SDK set model system prompt field — Replaces the custom system prompt from the next turn on, leaving sent tool definitions unchanged and requiring non-empty text with no revert form.
+- **NEW:** Skill: Claude Test sign-in — Signs the site's dedicated test member in without the login form, for spec steps that need a signed-in session.
+- **NEW:** System Prompt: Interactive agent intro (short) — Records the default one-line software-engineering intro, now assembled outside the harness prompt rather than inline within it.
+- **NEW:** System Prompt: Project thread in-thread message provenance — A message sent in the project thread answers only what the session sent through the reply tool, so a bare approval clears no block.
+- **NEW:** System Reminder: Background command stopped under memory pressure — Explains that an idle session's background shell was reaped for system memory, not for failing, and must not be restarted unprompted.
+- **NEW:** System Reminders: AGENTS.md project instructions and nested contents — Load AGENTS.md files through the agents-md plugin as project instructions, and attach nested ones to Read results.
+- **NEW:** Tool Description: list_connected_browsers (browser picker guidance) — Asks the user to choose only when several browsers are connected and none is selected, then calls `select_browser` instead of picking one.
+- **REMOVED:** Data: Artifact document quickstart routing — Drops the dedicated document quickstart branch; type discovery guidance still routes documents to an attached first-party connector.
+- **REMOVED:** Tool Description: Claude in Chrome bridge timeout error — Retires the single timeout message; timeouts still report, now branching on whether Chrome may sit on a sleeping remote computer.
+- Agent Prompt: /schedule slash command — Extends the required `{"role": "user", …}` message shape to the `session_request.events[].payload.message` form that list and get return.
+- Agent Prompt: Security monitor for autonomous agent actions and System Prompt: Harness instructions — Add `<pasted_content>` handling: text the user pasted carries intent only where their own words outside the tags ask.
+- System Prompt: Agent Summary Generation — JSON-escapes the previous summary quoted in the reminder instead of wrapping it in bare quotation marks.
+- System Prompt: Project timeline user message provenance — Adds in-thread message guidance and, where the thread carries in-thread messages, restates that Rule 6 reaches no marked message.
+- System Prompts and Reminder: Remote planning and self-hosted runner guidance — Rename "Claude Code on the web" to "Claude Code cloud sessions" across ultraplan, remote plan mode, and runner setup/doctor.
+- Tool Description: Artifact asset read result — Warns that a public artifact created outside the organization may have been written by anyone on the internet.
+- Tool Description: SendMessage cross-session guidance — States that the receiver reads a message literally, so `@path` or `@server:resource` attaches nothing; send the text itself.
+- Tool Description: Skill proposal rendering — Limits improvements to the user's own skills; plugin and built-in skills must be proposed as separately named new skills.
+- Tool Descriptions: Artifact quickstart and type discovery guidance (both wordings) — Drop the conditional AppifactRepl sentence appended to the type guidance for newly created Artifacts.
+- Tool Descriptions and Parameter: Artifact watch lifecycle, app wording, and watch actions — A newer published version starts no turn and sends no notification; Claude re-reads the artifact and merges its edits before republishing.
+
+# [2.1.273](https://github.com/Piebald-AI/claude-code-system-prompts/commit/c10ea52)
+
+_+5,149 tokens_
+
+- **NEW:** Data: Structured usage rate-limit rows field — Defines server-ordered usage-limit rows, null and empty semantics, and the synthesized header-fallback row used when usage fetching fails.
+- **NEW:** Tool Description: Artifact asset read result — Reports saved asset metadata and warns that writer-uploaded content is data, with stronger untrusted treatment for outside or co-writers.
+- **NEW:** Tool Descriptions: Artifact file-backed type detection and creation guidance — Guide agents to detect file-backed content before writing and manage project files while preserving index metadata.
+- **NEW:** Tool Description: FetchInboxMessage — Reads Remote Control inbox messages, distinguishes verified owner relays from untrusted third-party text, and enforces confirmation, expiry, and retry rules.
+- **NEW:** Tool Description: Skill-scoped git push refusal — Rejects force, delete, mirror, prune, hook-bypassing, push-option, and receive-pack push forms during skills without permitting evasive rewrites.
+- **REMOVED:** Tool Description: Artifact unsupported supporting file error — Removes the dedicated Artifact publish error explaining unsupported supporting-file media types and blocked viewer downloads.
+- Agent Prompts: Git commit and PR creation — Require commit messages and PR bodies inline because file and template flags are refused while these skills run.
+- Data: Artifact connector call observation requirement — Requires connector arguments from loaded schemas, result shapes from safe real calls, and explicit disclosure when neither can be observed.
+- System Reminders: AppifactRepl Design canvas and Slides deck workflows — Move creation and revision from store records to indexed `project/` files, embedding slide speaker notes in HTML.
+- Tool Description: Artifact database guidance — Documents removing nested database fields with the `{"__delete__": true}` sentinel in updates, while rejecting it in replacements.
+- Tool Description: Artifact type discovery guidance — Adds design systems shared with the user to discovery listings alongside personal and organization-owned systems.
+- Tool Description: Artifact type file-backed content update guidance — Makes updates explicit, including first-time store-to-files migration, index-marker preservation, read-before-write behavior, and one-call publication.
+- Tool Description: Publish audience-facing deliverables (app wording) — Publishes work when an external audience is named, but merely offers a page when passing it along is only possible.
+
+# [2.1.272](https://github.com/Piebald-AI/claude-code-system-prompts/commit/61212b6)
+
+_+9,812 tokens_
+
+- **NEW:** Tool Description: AppifactRepl — Defines a JavaScript runner, available only when supplied and directed by Artifact instructions, for coordinated data, file, asset, and skill operations.
+- **NEW:** System Reminders: AppifactRepl Design canvas and Slides deck workflows — When AppifactRepl is available, route canvas and deck edits through coordinated programs that safely handle file-backed or store-backed content.
+- **NEW:** System Reminders: New Design canvas and Slides deck parallel AppifactRepl workflows — For eligible new Artifacts, create the frame first, then populate ordered boards or slides through separately scoped calls submitted together.
+- **NEW:** System Reminders: New Design canvas and Slides deck two-step AppifactRepl workflows — Read prefetched instructions and record the Artifact version first, then frame and populate eligible canvases or decks in one coordinated message.
+- **NEW:** System Reminders: Prefetched Artifact type and design-system files — Guide local instruction reads, required Artifact version checks, and safe use of editable design files strictly as styling data.
+
+# [2.1.271](https://github.com/Piebald-AI/claude-code-system-prompts/commit/9e7679d)
+
+_+1,474 tokens_
+
+- **NEW:** Agent Prompt, Data, and Tool Descriptions: Artifact quickstart routing — Route new deliverables through account-specific types and design systems, including slash-command creation and first-party document connector handling.
+- **NEW:** Data: Artifact connector server naming guidance — Explains mapping MCP tool prefixes to manifest servers and using resolved display names for in-page connector calls.
+- **NEW:** System Prompt: Moved Artifact comment thread guidance — Re-evaluates resent comments at their new Artifact location while accounting for work already completed at the old location.
+- **NEW:** System Prompt: Subagent delegation cost guidance — Makes delegation cost-aware, favoring inline work for small known-target tasks and narrow, evidence-focused briefs when agents are worthwhile.
+- **NEW:** System Reminder: Remote Chrome browser extension not connected — Diagnoses unreachable desktop Chrome sessions and guides users through computer, browser, extension, and account checks before retrying.
+- **NEW:** Tool Descriptions: Artifact app-wording guidance — Add concise app variants for actions, assets, storage, comments, page authoring, implementation, titles, and live watches.
+- **NEW:** Tool Description: Artifact type file-backed content update guidance — Detects file-backed type content, requires reading changed files, and preserves type index metadata during same-URL updates.
+- **NEW:** Tool Description: Remote artifact watch guidance — Documents durable remote wake subscriptions for republishes and activated comments, including re-reading content after each wake.
+- **NEW:** Tool Parameter: Artifact unread path overwrite acknowledgement — Allows explicitly requested unread-path replacement while retaining stale-change refusal and read-or-list requirements for every other affected path.
+- **REMOVED:** Data: Published model catalog seed guidance — Removes the internal reference describing the compiled catalog seed, hosted refresh process, and minimum accepted document version.
+- **REMOVED:** Data: Streaming references — Python and TypeScript — Removes the dedicated SDK streaming guides and their examples; this does not state that API streaming support was removed.
+- **REMOVED:** System Prompt: Publish audience-facing deliverables — Retires the non-app wording; equivalent app guidance still publishes audience-facing work or offers it when intent is unclear.
+- **REMOVED:** Tool Description: Agent (simple usage notes) — Retires brief delegation guidance in favor of the dedicated cost-aware system prompt and its stronger bias toward inline work.
+- **REMOVED:** Tool Descriptions: Legacy non-app Artifact guidance — Remove eleven legacy variants as Artifact instructions shift toward app-specific, consolidated, and parameter-level prompts without inherently removing their capabilities.
+- **REMOVED:** Tool Description: Commit and PR skill routing — Replaces dedicated skill routing with direct commit and `gh pr create` instructions embedded in coordinator and worker prompts.
+- Agent Prompt: /batch slash command — Corrects worker-prompt interpolation so generated instructions are embedded rather than invoking the supplied prompt value as a function.
+- Data: Managed Agents outcomes — Makes `user.define_outcome` the default for deliverable-producing sessions and requires generated starter rubrics when users provide none.
+- Data: Platform availability — Limits Bedrock eager input streaming to the newer serving stack and warns that older model deployments reject the field.
+- Skill: Artifact components, Skill: Artifact document, and Tool Description: Artifact HTML document skeleton — Add viewport and safe-area guidance that keeps fixed and sticky controls clear of phone interface bars.
+- System Prompt: Action safety and truthful reporting — Removes conditional target-discrepancy wording before destructive actions while retaining the universal requirement to inspect targets first.
+- System Prompts and Reminder: Artifact comment handling — Support moved-thread triggers and refreshed anchors, add source and access framing, and route page-owned replies through document connector tools.
+- System Reminder: Large PDF read guidance — Removes the prescribed first-pages-first strategy and the stated 20-page maximum while retaining mandatory ranged reads.
+- Tool Description: ClaudeDesign — Removes the introductory preference for Claude Design on collaborative visual deliverables, leaving its operation and capability reference.
+- Tool Description: DesignSync — Restricts use to the user-started `/design-sync` skill and adds conditional session guidance while preserving its plan-before-write workflow.
+- Tool Description: PowerShell and PowerShell git guidance — Embed uniform Git safety directly in full PowerShell guidance and remove conditional skill-routing additions from the standalone variant.
+- Tool Description: SendMessage cross-session guidance — Clarifies that delivery may await approval, expire, or be refused, and that silence from remote sessions never implies agreement.
+- Tool Description and Parameter: Artifact watch lifecycle — Allow background main-loop sessions to hold Artifact watches while continuing to exclude subagents, teammates, and print sessions.
+
+#### [2.1.270](https://github.com/Piebald-AI/claude-code-system-prompts/commit/709742c)
+
+<sub>_No changes to the system prompts in v2.1.270._</sub>
+
+# [2.1.269](https://github.com/Piebald-AI/claude-code-system-prompts/commit/dcf1fc9)
+
+_+682 tokens_
+
+- **NEW:** Tool Descriptions and Parameter: Artifact app-wording variants — Add nine app-specific renderings of existing guidance for publishing, design, types, capabilities, live rooms, updates, safety, and supporting files.
+- **NEW:** Agent Prompt: Artifact comment completion reply and resolution — Requires one non-duplicate completion reply when needed, then resolves finished open threads unless the conversation remains active.
+- **NEW:** Agent Prompt: Plugin eval pilot trust requirement — Requires explicit trust before loading a plugin and piloting its evals; otherwise writes cases without running them.
+- **NEW:** Tool Description: Artifact design fallback requirements — Applies minimum title, theming, resource-host, phone-layout, and overflow requirements when a page is written before the design skill loads.
+- **NEW:** Tool Description: Commit and PR skill routing — Routes enabled commits and PR creation through dedicated skills with narrow raw-command exceptions; worker, coordinator, and PowerShell guidance follows it.
+- **REMOVED:** Agent Prompt: /ultrareview GitHub comment poster — Removes the dedicated routine for posting one deduplicated plain PR comment; this does not establish that `/ultrareview` itself was removed.
+- **REMOVED:** Skill: Plugin authoring — Removes the embedded plugin-development reference covering function hooks, rendering surfaces, dispatch lifetimes, validation, and registered tools.
+- **REMOVED:** System Prompt: Plugin eval enabled-session status — Removes the rollout-variable enablement notice after plugin eval became generally available, retaining kill-switch availability guidance in reference prompts.
+- **REMOVED:** Tool Description: Artifact authoring skill requirement — Replaces standalone design-skill loading guidance with an app-worded variant and separate fallback requirements.
+- **REMOVED:** Tool Description: Finding artifacts from earlier sessions — Removes standalone listing and recovery guidance; the new update variant still directs URL recovery through listing or asking.
+- **REMOVED:** Tool Descriptions: Live and remote Artifact watch guidance — Remove standalone explanations of session-local and durable republish watches; their disappearance does not establish that watching itself was removed.
+- Agent Prompt: /batch slash command — Corrects worker-prompt interpolation so generated worker instructions are embedded instead of the generator reference.
+- Agent Prompt: Claude Code guide, Agent Prompt: Claude guide agent, Data: Claude Code recent changes reference, and Skill: Claude Code configuration guide — Mark plugin eval generally available by default, with a server-side kill switch replacing early-access rollout instructions.
+- Skill: Plugin eval authoring interview — Supports parent-launched interviews while retaining `plugin eval init`, and adjusts generated eval-directory references for the selected invocation context.
+- System Prompts: Artifact comment list framing, thread framing, and thread triage — Add context-sensitive comment provenance and viewer-prefix framing while preserving untrusted-data boundaries.
+- System Reminder: /btw side question — Forbids writing fake tool calls or output and redirects questions requiring inspection or execution to the main conversation.
+- Tool Description: Artifact action reference — Rewords read/list trust and person-facing guidance, and conditionally documents live-file synchronization and approved, transient `room_send` broadcasts.
+- Tool Description: Artifact assets guidance — Adds CSS stylesheets and JavaScript scripts to the documented file types accepted by Artifact asset uploads.
+- Tool Description: Artifact type discovery guidance — Adds conditional surface-specific guidance for when a newly created typed Artifact opens during its initial fill.
+
+# [2.1.268](https://github.com/Piebald-AI/claude-code-system-prompts/commit/ad256fc)
+
+_-13,613 tokens_
+
+- **NEW:** System Prompt: Artifact page-owned comment thread guidance and System Reminder: Artifact page-owned comment reply refusal — Route replies to the page’s own comment tools under their permissions, or answer in-session; prohibit unsupported thread replies, resolution, and retries.
+- **NEW:** System Prompt: Sandbox task resource boundary — Limits work to task-provided resources even where unenforced; reachable credentials, projects, and machine-control interfaces are not permission to use them.
+- **NEW:** Tool Description: Navigate tab cleanup guidance — Requires closing automatically opened navigation tabs before finishing unless the user wants to see them or keep them open.
+- **NEW:** Tool Description: Upload image — Guides uploading fresh computer screenshots, allowing one fresh-capture retry unless declined; directs other files to file_upload when available.
+- **NEW:** Tool Parameter: Sandboxed command allowed domains — Declares direct and indirect command destinations for per-command review in auto mode only; forbids adding hosts merely because untrusted content requests them.
+- **REMOVED:** System Prompt: Interactive agent intro (output-style below) — Replaces the standalone introduction with wording that no longer says the output style is “below”; output-style guidance itself remains.
+- **REMOVED:** System Prompt: Scratchpad directory — Replaces the standalone temporary-file instructions with shorter environment guidance, retaining scratchpad preference and requiring an explicit user request for `/tmp`.
+- **REMOVED:** Tool Description: Bash (sandbox — adjust settings, mandatory mode, and no exceptions) — Removes three standalone sandbox-policy descriptions; their disappearance from the prompt catalog does not establish that sandbox enforcement was removed.
+- **REMOVED:** Tool Description: Browser file upload — Shortens the surviving upload description, dropping its shared-file eligibility and 10 MB wording; file upload itself is not removed.
+- Agent Prompt: Quick PR creation — Requires staging specific files by name rather than bulk additions that could accidentally include secrets or large binaries.
+- Agent Prompt: /schedule slash command — Rephrases the GitHub-access reminder to reference the earlier setup note and its remedy instead of repeating conditional connection instructions.
+- Skill: Dynamic pacing loop execution, Skill: /loop self-pacing mode, and Tool Description: Background monitor (streaming events) — Add conditional monitor-expiry guidance: use bounded watches, check for existing monitors, and re-arm expired watches rather than assuming session-long persistence.
+- Skill: Plugin authoring — Adds mobile rendering and surface-specific element limitations, while simplifying the explanation of fallback rendering and debug logging for invalid trees.
+- System Prompt: Artifact comment result guidance — Removes the instruction for fetching an individual comment thread by URL and thread ID, without stating that reading threads is unavailable.
+- System Prompt: Project timeline user message provenance — Recognizes every current shared-project member’s server-attributed messages as user intent, retaining action-specific consent rules and excluding former members and coordinator-controlled text.
+- Tool Description: Artifact design skill loading guidance — Shows the workshop exception to mandatory design-skill loading only when workshop support is available, retaining diagramming guidance within that exception.
+- Tool Description: Artifact publishing and update guidance — Condenses browser-storage guidance while retaining per-viewer isolation, failure-safe access, and the distinction between convenience storage and reliable shared state.
+- Tool Description: Artifact publishing and update guidance — Describes favicon emoji as list/card markers rather than browser-tab icons, and adds an optional persistent, generic, non-brand icon word.
+- Tool Description: Artifact publishing introduction — Removes the requirement to offer unrequested pages before building them, while preserving file-only handling for sensitive or potentially misleading or harmful content.
+- Tool Description: ReadFile and ReadFile compact — Consistently recommend targeted reads when the needed range is known, dropping whole-file preference and conditional file-size-limit wording while retaining line-number guidance.
+- Tool Description: WebFetch and WebFetch (concise) — Explain that localhost and other dotless hostnames are unsupported and direct local-server requests to curl through Bash instead.
+
+# [2.1.267](https://github.com/Piebald-AI/claude-code-system-prompts/commit/45081e3)
+
+_+1,450 tokens_
+
+- **NEW:** Tool Description: Artifact database version pinning guidance and Tool Parameter: Artifact database version precondition — Require version-pinned writes for previously read documents, rejecting stale writes and directing re-read-and-retry rather than overwriting concurrent edits.
+- **NEW:** Tool Description: Artifact responsive page contract — Requires phone-width layouts with preserved side gutters, wrapping content, and horizontal scrolling confined to oversized tables, diagrams, and code blocks.
+- **NEW:** Tool Parameter: Artifact database batch writes — Documents batched writes with conditional version pinning: stale pinned entries reject the whole batch; unpinned batches may fall back to sequential writes.
+- Agent Prompt: Security monitor forwarded user turns — Credits server-attributed Project-owner timeline messages as action-and-target-specific consent, resolving conflicts by written time; excludes bare affirmations, permission-prompt answers, and configuration-edit authorization.
+- Data: Self-hosted runner command help — Warns that Anthropic-managed Git replaces home-level Git configuration without backup at startup and before every session; requires a dedicated account or container.
+- Skill: Plugin authoring — Adds settings and environment access to the engine interface description and includes inbound session deliveries among hook events.
+- Skill: Plugin authoring — Documents hook-failure `.catch` handlers, one-time transcript notices for failures and unloaded modules, and debug logging of every occurrence.
+- Skill: Plugin authoring — Clarifies that surface element constructors must be destructured into JSX tags rather than assumed global, and that keyed boxes scope hover styles.
+- System Prompt: Artifact comment thread framing — Separates tool-emitted comment headers onto standalone lines and prefixes every content line, preserving the distinction between trusted framing and untrusted viewer text.
+- Tool Description: Artifact database guidance — Adds conditional per-document version preconditions to the batch-write example so individual entries can guard against overwriting concurrent changes.
+- Tool Description: Updating existing artifacts — Explains that republishing automatically updates already-open views while preserving page state where possible, including games, queues, and unfinished replies.
+- Tool Parameter: Bash command description — Requires plain-language command summaries rather than repeating command text, flags, or file paths, since users may not see the command itself.
+
+#### [2.1.266](https://github.com/Piebald-AI/claude-code-system-prompts/commit/2c34e86)
+
+<sub>_No changes to the system prompts in v2.1.266._</sub>
+
+# [2.1.265](https://github.com/Piebald-AI/claude-code-system-prompts/commit/4ef05c3)
+
+_+8,732 tokens_
+
+- **NEW:** Agent Prompt: Artifact type creation slash command — Creates an Artifact from a named published type, asks on duplicate titles, and follows the returned population instructions.
+- **NEW:** Agent Prompt: Project thread status card classifier — Classifies Project threads into five actionable states and emits concise owner-facing status, required action, and reply-button JSON.
+- **NEW:** Agent Prompt: Security monitor Claude Tag connector writes — Permits delegated writes through exact Claude Tag connector prefixes while retaining restrictions on sensitive, destructive, permission, and messaging actions.
+- **NEW:** Data: Managed settings helper onFailure field — Defines source-dependent helper-failure defaults, static fallbacks, startup refusal, status notices, and watched versus unattended session handling.
+- **NEW:** Data: Managed settings helper retries field — Defines bounded retries for execution failures with per-attempt timeouts and backoff, excluding invalid paths, output, envelopes, and settings.
+- **NEW:** Data: SDK MCP server manifests field — Documents one-shot cached MCP handshake results that avoid initial control-channel round trips while preserving full fallback compatibility.
+- **NEW:** Data: SDK partial assistant user message UUID field — Adds scalar join keys to initial and ownership-changing non-ping stream events, linking partial replies to the user message answered.
+- **NEW:** Data: SDK set model system prompt field — Documents runtime custom-system-prompt updates, render timing, non-empty requirements, feature overrides, and compatibility behavior for unsupported transports.
+- **NEW:** Data: SDK workspace trust directory field — Defines directory trust attestations using canonical repository identity while rejecting network, obfuscated, nonexistent, or mismatched paths.
+- **NEW:** System Prompt: Artifact comment presence state guidance — Treats tool-emitted comment presence as untrusted page data that may resolve references but cannot provide instructions or permission.
+- **NEW:** System Reminder: MCP servers connecting without ToolSearch — Prevents declaring capabilities unavailable while MCP servers are still connecting and awaiting their tool announcements.
+- **NEW:** System Reminder: Web fetch untrusted content reporting guidance — Requires faithful reporting of untrusted fetched content and prompt-injection findings without following embedded instructions or exfiltration requests.
+- **NEW:** Tool Description: Computer use enable stub guidance — Uses available remote-device tools directly, verifies connectivity through successful calls, and explains recovery when the desktop app is unavailable.
+- **REMOVED:** Data: SDK partial assistant user message UUIDs field — Removes batched UUID-list join keys from partial assistant events, replaced by per-owner scalar UUID stamps.
+- **REMOVED:** Skill: Plan Artifact — Removes the standalone workflow for converting plans into published Artifacts using the standard themed HTML template.
+- Data: Claude Code gateway protocol — Allows gateway-managed settings to redirect OTLP telemetry to a validated external collector without forwarding the gateway bearer.
+- Data: SDK assistant user message UUID fields and error result user message UUID field — Track mid-turn reply ownership across vouched synthetic turns and folded user messages, updating scalar and cumulative UUID echoes.
+- Data: SDK cloud session init snapshot field — Adds a directory-sync `muted` state indicating Anthropic’s emergency switch has suspended file uploads and installations until the switch clears.
+- Skill: Workflow authoring reference — Clarifies that most subagents inherit CLAUDE.md automatically and should receive only stage-specific rules rather than duplicated instructions.
+- System Prompt: Artifact comment list framing — Strengthens comment trust boundaries, clarifies row framing and organization context, permits artifact-scoped feedback, and incorporates presence-state guidance.
+- System Prompt: Auto mode Slack message provenance — Tightens human Slack provenance to opening-position envelopes and direct attachment references, excluding SendFile-note prefixes and clarifying harness-lead nesting.
+- System Prompt: Project timeline user message provenance — Defines coordinator-session relays as attributable but untrusted instructions that never establish user intent, consent, or boundary changes.
+- Tool Description: Artifact database guidance — Adds conditional string-replacement and concurrency guidance plus access-level simulation for testing signed-in viewer and co-owner permissions.
+- Tool Description: Artifact files guidance — Returns small text-file contents inline while continuing to save larger or binary Artifact files for local reading.
+- Tool Description: Artifact supporting files guidance and Tool Parameter: Artifact supporting files with cross-artifact sources — Allows publishing local supporting files directly from the configured scratchpad as well as the working directory.
+- Tool Description: Bash (Git commit and PR creation instructions) — Adds host-provided PR-body ending guidance to generated PR commands, allowing conditional content after the body-formatting instruction.
+- Tool Description: claude.ai Project — Adds read-only listing and retrieval of project memory files with per-session snapshots and extends untrusted-content handling to memory.
+- Tool Descriptions: WebFetch concise and private URL warning — Expands authenticated Artifact fetching from code Artifact URLs to standard `claude.ai/artifact/{id}` links across both tool descriptions.
+
+#### [2.1.263](https://github.com/Piebald-AI/claude-code-system-prompts/commit/237fc36)
+
+<sub>_No changes to the system prompts in v2.1.263._</sub>
+
+# [2.1.261](https://github.com/Piebald-AI/claude-code-system-prompts/commit/96db375)
+
+_+1,296 tokens_
+
+- **NEW:** Data: SDK initialize plugins parameter — Documents loading session plugins through the initialize request instead of expanding the launch command line, including MCP-discovery opt-out; requires `--await-initialize` at startup, excludes repeated initialization and remote transports, and reports whether the listed plugins are loaded through `plugins_applied`.
+- Agent Prompt: Claude guide agent, Data: Claude Code recent changes reference, and Skill: Claude Code configuration guide — Clarify that `/skill-doctor` is generally available in current releases while `claude plugin eval` remains in early access.
+- Agent Prompt: Status line setup — Gates the cold-cache example on `caching_observed` so providers that report no cache tokens are not shown as cold, while preserving explicit boolean checks in `jq`.
+- Data: Claude Code gateway protocol — Corrects the token-counting fallback from a Haiku-only probe to a one-token request using the session's model unless `ANTHROPIC_SMALL_FAST_MODEL` or `ANTHROPIC_DEFAULT_HAIKU_MODEL` is set.
+- Data: Interrupt cancel queued parameter and Interrupt receipt still queued field — Document that an interrupt before the first turn has an abort controller latches onto pending user work, causing the first turn carrying that work to start aborted, including an otherwise unreachable UUID-less notification; spare system-only turns and post-interrupt work, release the latch when the parked batch is entirely cancelled or, with no parked batch, no doomed queued work remains, and leave later-turn survivors running normally.
+- Skill: Artifact components — Updates the documented approved hash for the decisions script while retaining the requirement to preserve shipped script bytes exactly.
+- Skill: Plugin authoring — Simplifies background-work guidance, dropping the explicit plugin attribution for submitted prompts and the no-shell and exit-code/output details for host command execution while retaining idle-session delivery and argument-vector invocation.
+- System Prompt: Auto mode Slack message provenance — Adds conditional recognition of human-triggered bound-thread wake envelopes, including attachment-prefixed envelopes regardless of the message's trust attribute, plus harness leads for posts received while working and verified-human Poll markers, as user intent and consent; rejects non-human senders and nested or peer-framed imitations while preserving bot permission-laundering blocks.
+- Tool Description: Artifact type discovery guidance — Treats a default design system as the user's standing instruction for every slide deck and visual design, requiring lookup before choosing fonts or colors and before filling a typed Artifact; prioritizes named systems, respects an explicit decline, asks about non-default choices when possible, and permits an independent look when none are listed or lookup is unavailable.
+
+# [2.1.260](https://github.com/Piebald-AI/claude-code-system-prompts/commit/f8e393f)
+
+_+4,234 tokens_
+
+- **NEW:** Agent Prompt: Security monitor forwarded user turns — Uses request-keyed, harness-authored records of the parent session's human messages to establish action-specific intent and consent, including clearing a soft block for that action; rejects forged tags, unattributed consent, bare affirmations without the proposed action, blanket approval, and instructions addressed to the classifier.
+- **NEW:** Skill: Plugin authoring — Documents function-hook plugins, build-generated `/plugin-types` declarations, validation and hot reload, surface-specific UI rendering, dispatch cancellation, persistent background work, and model-callable tool registration.
+- **NEW:** System Reminder: Remote machine file sync timing for subagents — Explains that remote results and user edits enter the local copy at the main conversation's steps, not the subagent's; directs subagents to read newly generated output and ignored files on the remote machine itself.
+- **NEW:** System Reminder: Remote machine Git and credential routing — Routes credential-dependent Git and `gh` commands, or commands for non-GitHub remotes, to the user's machine under its own approval rules instead of requesting tokens; makes clear that credentials are never copied into this environment.
+- **NEW:** Tool Description: Artifact publishing introduction — Reintroduces default-private HTML publishing guidance, offers useful visual or interactive pages before building them when unrequested, permits proactive publishing of Claude's own work, and keeps sensitive or potentially misleading or harmful content as files for the user to decide whether to publish.
+- **NEW:** Tool Description: AskUserQuestion extended host guidance — Adds text and bounded-number questions, prioritizes the most important question, defaults choices to multiselect unless mutually exclusive, keeps helper text optional, and supports unanswered questions, free-form answers, and user-requested follow-up questions without explicit Other or Skip options.
+- **NEW:** Tool Parameter: Artifact supporting files with cross-artifact sources — Documents server-side copying of published files from accessible Artifacts in the same organization, with source-version limits and HTML/SVG/XML exclusions; preserves omitted files on updates and uses null to remove a path.
+- **NEW:** Tool Parameter: Artifact title — Defines concise Artifact names, HTML-title precedence within the first 8KB, Markdown filename identity, file-based content, and the separate naming and type-name fallback rules for `type_url` creation.
+- Agent Prompt: Status line setup — Documents optional prompt-cache health, TTL and expiry, hit ratio, miss causes, expected rebuilds, and recache-token metrics, with a cold-cache shell example that preserves false boolean values when reading JSON with `jq`.
+- Data: Artifact host MCP server guidance — Allows the built-in `host:claude_browser` exception for reading and acting on websites, lists its supported browser tools, and limits it to desktop Cowork viewers with approval before each website; other built-in servers remain disallowed.
+- Data: Claude API reference — Go — Prefers current model string IDs over potentially outdated SDK constants, switches the adaptive-thinking example from Sonnet 4.6 to the configured Opus model, and opts into summarized thinking with a note covering Fable 5/5.1, Mythos 5/5.1, Opus, and the configured Sonnet model.
+- Data: Streaming references (C#, Go, Java) and Tool use reference (C#) — Switch example models from older typed constants to the configured Opus string ID, replacing Opus 4.8 in streaming and Sonnet 4.6 in tool use.
+- Data: Claude API reference (PHP) and Streaming references (Python, TypeScript) — Expand the summarized-thinking opt-in note to cover Fable 5.1, Mythos 5.1, and the configured Sonnet model alongside the existing model list.
+- Data: Review upload excluded changes error — Identifies sandbox read-deny settings, as well as Read rules, as reasons changes can be withheld from upload.
+- Data: Rewind files skippedLinks field — Clarifies that non-link restoration failures are excluded from this count but reported in telemetry, and that the rewind fails with `canRewind: false` when every differing file fails to restore.
+- Data: SDK cloud session init snapshot field — Adds connection state and live/recent remote-call status, including approval timing and completion dispositions without call inputs or outputs; documents `cloud_session_delta` updates and forward-compatible handling of new states.
+- Data: Self-hosted runner command help and Session metrics help, and System Prompt: Self-hosted runner doctor — Describe releasing and pausing resumable sessions at the lifetime limit when waiting for the user, releasing active turns when they park or finish, and reserving SIGTERM for the hard cap; distinguish clean retire/max-age releases from interrupted hard-cap kills.
+- Skill: Multiplayer whiteboard description — Broadens the trigger from explicitly multiplayer or live whiteboards to ordinary whiteboard requests and sketches of designs or diagrams for discussion, while retaining live collaboration and new-board-only scope.
+- Skills: Setup Cowork and Setup Cowork role selection — Reframe the onboarding as “Guided setup” for Claude rather than Cowork, including the introduction and writing-voice handoff.
+- Skill: Workflow authoring reference — Requires structured-output schemas to have an object root with properties and any required keys present in those properties, and notes that unsatisfiable schemas throw at `agent()`.
+- System Prompt: Artifact comment result guidance — Removes the opening reply-call recipe and its 4096-byte plain-text limit from this guidance while retaining activated-thread, attribution, resolution, and thread-reading rules.
+- System Reminders: Artifact type instructions trust boundary and Artifact type page untrusted content warning — Extend the type's content scope from data files to store documents, explicitly forbid unauthorized writes to other addresses, and generalize page inspection from expected files to expected content without relaxing the untrusted-data boundary.
+- Tool Descriptions: Artifact publishing and update guidance and Artifact runtime capabilities guidance — Direct reliable, shared, or Claude-readable state to available runtime capabilities, and require loading the runtime skill whenever capabilities would make the page more useful, not only when the user explicitly requests them.
+- Tool Descriptions: Artifact type creation guidance and Artifact type discovery guidance — Require a title when creating from a type and explain that a type can take store documents rather than published data files; follow the returned instructions to populate the new Artifact instead of assuming every type takes files.
+- **REMOVED:** Skill: Code Review (altitude dimension) — Removes the standalone review guidance to fix problems at the underlying mechanism rather than layering fragile special cases on shared infrastructure.
+
+# [2.1.259](https://github.com/Piebald-AI/claude-code-system-prompts/commit/e81a031)
+
+_+1,335 tokens_
+
+- **NEW:** Data: `allowedMcpServers` setting — Documents the enterprise allowlist for user-added MCP servers across configuration, CLI, agents, plugins, and claude.ai connectors; exempts organization-delivered servers unless `managed-mcp.json` uses `${VAR}` expansion; and defines undefined, empty-array, and denylist-precedence behavior.
+- **NEW:** Data: SDK `user_message_uuids` fields (assistant, partial assistant, and error result) — Define ordered join-key lists for binding prompt-batched sends to reply frames, first non-ping stream events, and error results; extend error-result coverage to queued messages folded into the turn; and specify first-frame placement, 64-entry bounds, inclusion of `user_message_uuid`, delivery-failure/zeroed exclusions, and older-producer fallback.
+- **NEW:** Tool Description: Artifact pinning guidance — Defines the sidebar `pin` and `unpin` actions; offers pinning only for reusable artifacts and waits for confirmation; allows publish-time `pin: true` only when requested beforehand; and clarifies that pins are private and do not affect access.
+- Data: Plugin JSX runtime shim — Adds plugin render-hook support for leaf-only `<Svg>` elements with required string `source` (SVG markup) and `alt` properties and optional `width`, `height`, and `interactive` properties, including dedicated validation and dispatch.
+- Tool Description: Artifact action reference — Adds conditionally available `pin` and `unpin` calls to the Artifact action list.
+
+# [2.1.258](https://github.com/Piebald-AI/claude-code-system-prompts/commit/545894c)
+
+_+239 tokens_
+
+- Agent Prompt: Plan mode (enhanced) — Corrects CCSP's extracted agent metadata to include `ArtifactComments`, `ArtifactData`, and `ArtifactCheck` among the Plan subagent's disallowed tools; the restrictions already exist in both upstream versions, so Claude Code behavior is unchanged.
+- Tool Description: TaskCreate — Corrects the generated teammate-note placeholder from `CONDTIONAL_TEAMMATES_NOTE` to `CONDITIONAL_TEAMMATES_NOTE`; rendered prompt text and runtime behavior are unchanged.
+
+# [2.1.257](https://github.com/Piebald-AI/claude-code-system-prompts/commit/9465ca1)
+
+_+4,226 tokens_
+
+- **NEW:** Agent Prompt: `/code-review` GitLab comment posting — Posts findings as one general merge-request note with `glab mr note`, falls back to terminal output when `glab` is unavailable or the target is not an MR, and reserves line-anchored discussions for explicit requests.
+- **NEW:** Data: Plugin JSX runtime shim — Provides plugin render hooks with validated JSX primitives, fragments, flattened children, and button labels, keys, hotkeys, plain rendering, and press handlers.
+- **NEW:** Data: Published model catalog seed guidance — Documents the compiled catalog used until the hosted model catalog is cached, its hand-built public-ID provenance and version-zero floor, and why model launches update the hosted document rather than this seed.
+- **NEW:** System Prompt: Claude Fable 5.1 model identity — Identifies Fable 5.1 as the newest and most intelligent generally available Claude model, explains its shared model and safety distinction from Mythos 5.1, and links to the Fable page.
+- **NEW:** System Prompt: Publish audience-facing deliverables — Elevates finished reports, plans, references, and decision documents from Artifact-local guidance into a system-level requirement to publish through Artifact or a host-designated first-party document connector and hand the user a shareable link.
+- **NEW:** System Reminder: Artifact capability declaration revocation warning — Warns when adding capabilities would silently drop stored ones, supplies the union needed to preserve them, and explains the deliberate two-publish revocation flow and `capabilities: {}` reset.
+- **NEW:** Tool Descriptions: Artifact authoring and presentation guidance — Make the design skill carry the page contract, define workshop and diagramming exceptions plus host-specific context, and extract HTML-skeleton, title, CSP, theme, gallery-handoff, and prohibited-publishing rules into reusable prompts.
+- **NEW:** Tool Descriptions: Artifact actions, earlier-session lookup, ownership, and updating — Centralize publish, read, and list plus conditional delete and open actions; preserve read-before-update and same-URL/path behavior; distinguish owned from shared listings and untrusted titles; and route prior artifacts through list and gallery fallbacks.
+- **NEW:** Tool Descriptions: Artifact watch lifecycles — Split live, durable, remote, and restored-session watch variants into dedicated prompts covering wake and re-read behavior, optional comment wakes, truthful arming and status reporting, reconnection or restoration, and interactive/main-loop eligibility.
+- **NEW:** Tool Description: Skill proposal rendering — Renders up to three complete recurring-procedure skill proposals for review without writing files, treats saved updates as whole-skill replacements, and avoids one-off or already-proposed workflows.
+- Agent Prompt: `/schedule` slash command — Requires each scheduled event's `data.message` to use the API message shape `{"role": "user", "content": "..."}` and forbids omitting the role.
+- Agent Prompt: Artifact comment thread analyst and System Prompts: Artifact comment list/thread framing — Adapt action references to the available Artifact tool surface, make the “sent to you” attribution label configurable, and expand area-anchored feedback with detail, region, covered-child, and source-snippet framing while preserving untrusted-data boundaries.
+- Data: Claude Code gateway protocol — Requires device-authorization and token endpoints to answer directly because the client follows no redirects for those requests.
+- Data: Platform availability — Adds Bedrock and Vertex support for mid-conversation system messages, expands the supported model list and Bedrock passthrough note, and documents turn-scoped `clear_at` system messages, per-message `output_config` effort, `thinking.display: "updates"`, and `thinking.block_binding`/`input_transformations` across provider platforms.
+- Data: SDK cloud session init snapshot field — Adds two-way versus upload-only directory direction, host identity and working-directory metadata, and remote tool-serving state, reason, policy, and channel fields with forward-compatible fallback rules.
+- Skill: Update config settings file locations — Documents `timeFormat` values for automatic, 12-hour, 24-hour, 24-hour UTC, or `strftime` formatting and the `timeZone` IANA setting.
+- Skill: Workflow authoring reference and Tool Description: Agent usage notes — Hide per-phase and per-agent `model` override guidance, including the workflow hook signature, when the host forces the subagent model.
+- System Prompt: Auto mode setup proposal generator — Adds host containment to the network-posture policy areas that generated auto-mode setup must cover.
+- System Prompt: Claude Fable 5 model identity — Removes the outdated claims that Fable 5 is Anthropic's most intelligent and most advanced generally available model while retaining its relationship and safety distinction from Mythos 5.
+- System Prompt: Saving skills via file delivery — Reframes file delivery as the creation and update path, clarifies that unsent filesystem edits do not change account skills without claiming the session filesystem is discarded, and requires starting from and delivering the complete current skill because a saved same-name file replaces it entirely.
+- System Reminder: Deferred tools available — Stops appending the explicit list of newly available deferred tools after the instruction to load their schemas through ToolSearch.
+- Tool Description: Artifact publishing and update guidance — Removes the blanket requirement to read every file Claude did not write in full before publishing it, even when the user asks for privacy; update, list, watch, external-resource, theme, and publishing-safety sections otherwise move into dedicated guidance.
+- Tool Description: Artifact type discovery guidance — When a compatible type can use a reusable Artifact such as a design system and the user has not named or declined one, lists the available choices before styling, auto-selects a default or asks about non-default choices when possible, and uses `auto_open: "after_first_write"` when a newly created typed Artifact will be populated next.
+- Tool Description: Bash git commit and PR creation instructions — Stops injecting the separate PR-writing guidance block between the commit and pull-request sections, leaving only optional pre-commit guidance there.
+- Tool Description: SearchPlugins — Clarifies that an enabled result is enabled for the current session, or for the channel in a channel session.
+- **REMOVED:** Tool Description: Artifact — Removes the former top-level overview's default-private and proactive-publishing pitch, its file fallback for misleading, harmful, or user-framed-sensitive content, and its markdown-to-designed-HTML conversion wording; audience-publishing, design-skill, HTML-skeleton, and title rules continue in standalone prompts.
+- **REMOVED:** Tool Description: Artifact content host network block guidance — Removes the environment allowlist recovery warning for sessions that cannot read or hand over the live Artifact content host.
+- **REMOVED:** Computer interaction prompt suite — Removes read- and click-tier policy reminders plus tool guidance for application access, platform and UIPI limits, screen-takeover consent, batched actions and coordinate handling, held mouse and keyboard input, typing, and zoom inspection.
+- **REMOVED:** Tool Description: `request_teach_access` (part of teach mode) — Removes the permission flow for guiding users with fullscreen step-by-step tooltips instead of directly controlling applications.
+
+# [2.1.252](https://github.com/Piebald-AI/claude-code-system-prompts/commit/2a3cec9)
+
+_+100 tokens_
+
+- System Reminder: Session context — Identifies when session context was re-read and includes the formatted refresh reason, while continuing to mark refreshed values as replacements for earlier ones.
+
+# [2.1.251](https://github.com/Piebald-AI/claude-code-system-prompts/commit/467bbfc)
+
+_-743,949 tokens_
+
+- **NEW:** Agent Prompt: Artifact editor thread follow-up — Routes a tagged comment that arrives while an editor owns an Artifact to that worker, requiring a page-scoped edit and republish for relevant requests and no change for unrelated ones.
+- **NEW:** Agent Prompt: Schedule local MCP server limitation — Explains that MCP servers configured directly in Claude Code cannot be attached to cloud routines, limits routines to Claude.ai connectors, and adapts connector advice to why the connector list was unavailable.
+- **NEW:** Data: SDK Remote Control availability field — Documents the optional internal initialize-response field for stable deployment eligibility, lets IDE hosts hide an impossible Remote Control affordance, and tells older-CLI consumers to treat an absent field as available.
+- **NEW:** Skill: Multiplayer whiteboard description — Adds trigger guidance for live shared boards with synchronized strokes and cursors, session presence, pasted images, and Claude drawing in real time.
+- System Prompt: Interactive agent intro — Splits the configured Output Style opening into variants that say the style is “below” only when it is actually included below the intro.
+- **NEW:** System Prompt: Reporting outcomes — Requires completion claims to rest on observed results, puts failures, skipped steps, and incomplete work first, and forbids presenting unchecked or partial work as done.
+- **NEW:** System Reminder: Cross-session peer message authority warning note — Adds a note-only peer-message variant that identifies the sender as a session-owned subagent or teammate while preserving the rules against escalation, approval transfer, and permission laundering.
+- **NEW:** System Reminder: Memory updates — Marks earlier memory reads stale when memory files change, establishes the refreshed turn-start state, and forbids exposing the machine-generated update block to the user.
+- **NEW:** System Reminder: Session context — Supplies selected session values, explicitly replaces earlier values when they change, and tells Claude not to respond to them unless highly relevant.
+- Agent Prompt: Status line setup — Adds the optional Claude gateway `rate_limits.spend_limit` object, including percentages above 100 and reset timing, plus a shell example for displaying it.
+- Agent Prompts: Web fetch usage guidance and Web reading specialist — Make foreground result delivery explicit, cap the specialist at 15 turns, and require failed or denied fetch reports to name the URL and HTTP status or error so the caller can retry directly.
+- Data: Claude Code agent proxy troubleshooting guide — Adds diagnosis for mid-transfer resets and RPC disconnects, directing Claude to inspect `recentRelayFailures` before blaming the remote service.
+- Data: Files API references (C#, Go, Java, PHP, Python, TypeScript) and Platform availability — Mark the Files API as out of beta on the first-party Claude API and Claude Platform on AWS, warn that current stable SDK shapes break from the older beta namespaces, and mark Agent Skills as generally available on those same two platforms.
+- Skill: Plugin eval authoring interview — Requires local mocks for every MCP tool an evaluated flow can call, supports canned, argument-sensitive, error, and stateful multi-call mocks, and adds the mock layout to the generated eval suite.
+- Skill: Artifact document, Skill: Artifact report, Skill: Data Visualization description, Tool Description: Artifact, and Tool Description: Artifact type discovery guidance — When a host-designated first-party document connector is attached, route shared document work there instead of to Artifact types or document skills, keep third-party tools from triggering that route, retain Artifacts for explicit Artifact/HTML/Markdown requests and app-like pages, and pass chart rows rather than rendered images to connectors with live charts.
+- Tool Description: Artifact comments guidance, Tool Parameter: Artifact comment actions guidance, System Prompts: Artifact comment list/thread framing and result guidance, and System Reminder: Artifact comment reply activation failure — Explain how writers send threads to Claude, distinguish comments sent to another Claude session, add stale anchor-label and source-snippet context, and tell Claude how to report threads it cannot reply to or resolve.
+- Tool Description: Artifact publishing and update guidance — Adds app-specific post-publish handoff through the conversation card without repeating the URL or terminal shortcuts.
+- Tool Description: Artifact — Spells out the publisher-supplied HTML reset and `hidden` behavior and requires page-owned title and styles.
+- **NEW:** Tool Description: Artifact nested runtime cleanup error — Diagnoses repeatedly nested runtime markers, `<base>` tags, and page skeletons and directs Claude to retain and republish the innermost clean document.
+- Tool Description: Artifact live room guidance and Tool Parameter: Artifact watch actions guidance — Clarify approval and lifetime boundaries across auto mode, `/clear`, conversation switches, and resumes, and state that only interactive or SDK main-loop sessions—not subagents, teammates, background work, or print sessions—can hold Artifact watches.
+- Tool Description: Artifact database guidance — Clarifies that private `data/users/me` paths are expressed through the collection path and resolve to the current user only when the published Artifact also declares the `user` capability.
+- Skill: Claude Code configuration guide — Sends users to GitHub issues instead of `/feedback` when feedback is disabled by policy or a kill switch, as well as on Bedrock, Vertex, and Foundry.
+- System Prompt: REPL tool usage and scripting conventions — Resolves top-level Edit and Write names through their available aliases and documents NotebookEdit, rather than Write, in the direct REPL-call examples.
+- **REMOVED:** Agent Prompt: Security monitor for autonomous agent actions (second part) — Removes the standalone second policy segment covering environment context, block and allow rules, consent evaluation, and classification output; the first part, host-context guidance, and remote-machine rules remain.
+- **REMOVED:** System Reminder: Permission prompt auto-denied after timeout — Removes the standalone reminder that an unattended timeout neither performed nor judged the action and that approval-gated variants should not be retried until the user returns.
+- **REMOVED:** Managed Agents onboarding and reference suite — Removes the onboarding flow, `ant` CLI guide, overview, client and core-concept references, endpoints, environments and resources, events, memory stores, multi-agent sessions, scheduled deployments, self-hosted sandboxes, tools and skills, webhooks, and the cURL, Go, Java, PHP, Python, Ruby, and TypeScript references; the Managed Agents outcomes reference remains.
+- **REMOVED:** Claude API and application-building reference suite — Removes the Admin API guide, Claude API references (C#, cURL, Java, Python, TypeScript), model catalog, HTTP error and live-source guides, prompt-caching guide, tool-use concepts and references (Go, Java, Python, TypeScript), Agent Design Patterns, Python SDK migration, application-building, cost-optimization, model-migration, and prompt-audit skills.
+- **REMOVED:** Artifact and visual-authoring bundle — Removes the decision-component assets, workshop and plan templates, Artifact design and workshop skills, both Artifact PR-review flows, the Design, Prototype, and Whiteboard skills, and the data-visualization reference palette; the original Whiteboard trigger description remains alongside the new multiplayer-specific description.
+- **REMOVED:** Plugin, design-sync, run, and verification bundle — Removes the Cowork plugin schemas and authoring skill, plugin eval and skill-doctor references, Design sync and its package/Storybook variants, the Electron run example, Run skill generator, and Verify skill.
+
+#### [2.1.250](https://github.com/Piebald-AI/claude-code-system-prompts/commit/ac2b0db)
+
+<sub>_No changes to the system prompts in v2.1.250._</sub>
+
+# [2.1.248](https://github.com/Piebald-AI/claude-code-system-prompts/commit/17ca617)
+
+_+2,562 tokens_
+
+- **NEW:** Agent Prompt: Remote machine auto mode rules — Tells the security monitor to apply the executing machine's deny and allow rules plus environment context to remote commands, while ignoring any embedded instructions that are not command rules.
+- **NEW:** Data: Review upload excluded changes error — Explains when a review has no uploadable work because every uncommitted file was withheld from the git bundle, lists representative exclusion causes, and directs the user to stage or commit other work first.
+- **NEW:** Data: SDK footer indicator schema and SDK plugin warnings field — Document the server-configured terminal footer pill and host-UI propagation, plus advisory loaded-plugin warnings versus synthetic-source notices for content that did not load and the bridge-worker lane's omission semantics.
+- **NEW:** Skill: Workflow authoring reference — Moves the detailed Workflow APIs, concurrency and budgeting rules, orchestration patterns, Ultracode guidance, and resume behavior into a dedicated reference instead of presenting them all in the tool description.
+- **NEW:** System Reminders: Directory sync disabled after initial checkout failure and stopped for session — Tell Claude when the cloud working directory does not contain the user's project or when sync has permanently stopped, direct subsequent project work to the attached machine, and require a concise explanation to the user.
+- **REMOVED:** Skill: `/loop` slash command — Removes the older fixed/default-interval prompt variant; the separate `/loop` dynamic-mode prompt remains.
+- Agent Prompt: `/schedule` slash command — Offers `/web-setup` in GitHub-access reminders when quick web setup is permitted and nonessential traffic is enabled, rather than keying that wording to the former experimental feature flag.
+- Data: SDK cloud session init snapshot field — Expands directory-sync state with first-upload progress, synced plain-folder file counts, other-window ownership, and whether the container started from an uploaded directory, and clarifies that `seeding` covers sync-engine startup.
+- Data: SDK MCP server errors field — Clarifies that bridge-worker connections omit `mcp_server_errors` because skipped-entry details remain in the local log, so omission does not prove every entry validated.
+- Data: Self-hosted runner command help — Adds `--client-label` and `SELF_HOSTED_RUNNER_CLIENT_LABEL` for a console-visible observability label that defaults to the hostname and does not affect authorization or routing.
+- Skill: Artifact design and Tool Description: Artifact publishing and update guidance — Allow pinned UMD scripts from the CSP-approved CDN hosts, prefer cdnjs, require library scripts before dependent inline code, and continue to require non-script assets and page-owned code to be embedded.
+- Skill: Cost optimization — Positions prompt audit as one input-hygiene sub-lever of the broader cost workflow and frames evaluation-backed, one-change-at-a-time keep-or-revert iteration as a hillclimb once an eval exists.
+- Skill: Design — Clarifies that embedded images default to base64 `files` entries while uploaded assets use relative `_blob/<id>` references directly rather than becoming files entries.
+- Skill: Whiteboard — Restricts the board's first publish to the Artifact capability, marks acknowledgement writes with `--ack`, documents box/image-attached arrow endpoints and inspection of user-added images, and changes layout guidance to roomier spacing with orange Claude-authored ink.
+- System Prompt: Coordinator mode orchestration — Adds a forced-inheritance variant that says the worker model parameter is ignored and must not be set, while the normal variant more explicitly forbids downshifting work because it appears small, simple, or cheap.
+- Tool Description: Artifact live room guidance — Adds current-user page presence to room status and next-turn events as context rather than a request, keeps other viewers' presence hidden, and no longer describes an hourly event cap.
+- Tool Description: Artifact publishing and update guidance — Requires reading an earlier-conversation Artifact before updating it and building on the returned live version, matching the refusal behavior for pages not yet read or published in the conversation.
+- Tool Description: Artifact publishing and update guidance — Includes favicons in Artifact listings, requires a favicon only on first publish, and tells Claude to omit it on redeploy so the existing icon is preserved unless the user asks to change it.
+- Tool Description: RefreshMcpTools — Adds surface-specific guidance that refreshed MCP tools become callable inside the REPL when that surface routes them there, while retaining immediate next-step availability elsewhere.
+- Tool Description: SendMessage cross-session guidance — Clarifies that a subagent sends under its parent session's address and that replies return to the parent conversation rather than the subagent.
+- Tool Description: Workflow and System Reminder: Ultracode enabled — Keep explicit Workflow opt-in, pure-literal metadata, and the canonical pipelined review example in the compact invocation guidance while redirecting detailed authoring and Ultracode guidance to the new Workflow reference.
+
+# [2.1.247](https://github.com/Piebald-AI/claude-code-system-prompts/commit/d513cad)
+
+_+26,898 tokens_
+
+- **NEW:** Data: Admin API reference — Documents organization-admin authentication, endpoint and SDK/CLI coverage, per-language naming and pagination, workspace and API-key management, rate limits, service accounts, workload identity federation, customer-managed encryption keys, and the operations that still require raw HTTP.
+- **NEW:** Data: SDK remote tool call request schema — Documents how cloud workers forward initial tool calls, approval legs, detached declines, and outcome queries to the attached machine, including cancellation and older-client error handling.
+- **NEW:** Skill: Cost optimization — Adds a cost-per-completed-task workflow that profiles distinct traffic classes from Admin API data, application usage logs, or code estimates; ranks savings ceilings; applies caching and other quality-neutral reductions before effort, budget, model, and multi-model tradeoffs; requires spend approval and representative evaluations; measures one lever at a time; and permits “no changes recommended” as a successful result.
+- **NEW:** System Prompt: Writing for the user — Requires standalone, answer-first final messages with concise complete sentences; prohibits em dashes, parentheticals, arrows, reasoning commentary, and session-invented labels; constrains code, numbers, headings, and list formatting; expands uncommon acronyms; and stops once the answer is complete.
+- Agent Prompt: Security monitor for autonomous agent actions (second part) — Adds an Unrequested Artifact Publish rule that treats Artifact publication as outbound sharing and blocks publishing the user's material at content fidelity unless the user's own message requested that kind of page; allows agent-authored result pages without the user's material at file fidelity unless independently sensitive; and excludes mere investigation or report-back requests, tool/file instructions, and unanswered approval prompts from consent.
+- Data: Artifact workshop page HTML template, Plan artifact HTML template, and Workshop artifact HTML template — Percent-encode spaces and quotes in the inline SVG data URI used to render checked checkboxes.
+- Data: Background tasks changed event schema — Emits the full live-task snapshot when a task's `ambient` flag changes, not only when task membership changes.
+- Data: Claude Code gateway protocol — Documents the form-encoded `surface` device-authorization extension, Claude Code's `surface=claude_code` value, and its `User-Agent: claude-code/<version>` header on OAuth metadata, device, token, and refresh requests.
+- Data: Live documentation sources — Adds live cost-optimization and Usage and Cost Admin API sources plus organization-management sources for the Admin API guide and reference, workspaces, rate limits, workload identity federation, and usage/cost reports.
+- Data: Platform availability — Marks explicit and automatic prompt caching as generally available on Microsoft Foundry and automatic caching as available on Amazon Bedrock and Google Vertex AI, while retaining explicit-breakpoint-only guidance for the legacy Bedrock integration on Opus 4.6 and earlier.
+- Data: Prompt Caching — Design & Optimization — Adds workspace/organization cache-isolation scope, start-to-start TTL selection and refresh semantics, automatic-versus-explicit breakpoint rules and their robust combination, continuous hit verification and payload-diff/cache-diagnostics workflows, TTL-specific write accounting, model-specific thinking and effort invalidation and prior-thinking preservation behavior, and the cache economics of parallel multi-agent requests.
+- Skill: Agent Design Patterns — Replaces automatic-caching-only advice with an explicit breakpoint on the static system prefix plus automatic caching for the conversation tail where available.
+- Skill: Building LLM-powered applications with Claude — Adds `cost-optimize` dispatch and routing, measured cost-aware effort-selection guidance, Admin API quick-reference and routing, and a model-dependent 512–4,096-token cacheable-prefix range in place of the approximate 1,024-token minimum.
+- Skill: Design — Adds Artifact-uploaded canvas image guidance requiring `_blob/<id>` without a leading slash, regardless of the URL returned by `upload_asset`.
+- Skill: Whiteboard — Adds arrow and line endpoint inspection, handles large-board JPEG snapshots by following the helper-reported path and format, and retires a labeled box's riding label together with the box.
+- System Prompt: Memory instructions — Conditionally adds memory-file size guidance when the memory index should be skipped.
+- System Reminder: Directory sync branch switch parked work — Avoids claiming that the checkout followed a user branch switch when the directory-sync result already records the branch as user-moved, while preserving the parked-work recovery guidance.
+- Tool Description: Artifact identical resubmission refusal — Avoids repeating the identical-resubmission reason after the refusal prefix and adds force-refusal-specific follow-up while retaining the fresh-fetch, merge, and republish requirements.
+
+# [2.1.246](https://github.com/Piebald-AI/claude-code-system-prompts/commit/3ceec8f)
+
+_+69,754 tokens_
+
+- **NEW:** Data: Message Batches API references (C#, PHP), Files API references (C#, Java, PHP), Streaming references (Go, Java, Ruby), and Tool use reference — Ruby — Newly surfaced by CCSP/TweakCC's Bun-asset extraction; these model-facing SDK resources already existed upstream and were not introduced in Claude Code 2.1.246.
+- **NEW:** Skill: Artifact workshop and Data: Artifact workshop page HTML template — Add iterative decision workshops with direct-HTML and Markdown lanes, on-page choice confirmation, an evolving published draft, a reader-triggered build kickoff, and a structurally verified interactive template.
+- **NEW:** Data: SDK assistant and error-result user message UUID fields and SDK per-task stop affordance field — Document reply/error join keys for client-supplied user-message UUIDs and the capability declaration that lets open-input clients stop individual background tasks without an ordinary interrupt killing them.
+- **NEW:** Data: `syncClaudeAiPlugins` setting — Documents how setting plugin sync to `false` stops downloads, hides or trashes previously synced plugins according to settings scope, and leaves enablement controlled by the server-side account feature.
+- **NEW:** Skill: Whiteboard description — Adds model-facing trigger guidance for creating a shared sketch canvas that the user and Claude can draw on together or use as planning input.
+- **NEW:** System Reminder: Permission prompt auto-denied after timeout — Explains that an unattended timeout neither performed nor judged the action, stops Claude from retrying approval-blocked variations while the user is away, and redirects it to useful unblocked work.
+- **NEW:** Tool Description: Artifact watch approval explanation — Explains session-wide watch approval, local live connections versus cloud wakeups, content-free republish notices, and the narrower reapproval boundary for comment auto-replies on another Artifact.
+- **REMOVED:** System Reminders: Directory sync git-checkout guidance, plain-folder guidance, receive-only budget exhausted, and uncopied user files — Remove the four standalone mode and transfer-budget reminders.
+- Agent Prompt: `/schedule` slash command — Makes one-time `run_once_at` cloud routines universally available, skips the initial action picker when the request already names the task, requires a fresh UTC time check for relative one-off schedules, and respects organization policy when suggesting quick GitHub setup.
+- Data: Managed Agents environments and resources — Warns that package installation under limited networking requires `allow_package_managers: true`; allowlisting a registry host alone is insufficient and yields a 400 response.
+- Data: Anthropic CLI and Managed Agents references (Go, Java, PHP, Python, Ruby, TypeScript), and Skill: `/design-sync` package source shape — Correct literal newline escapes in shell, SDK, and frontmatter examples after the resources moved out of inline JavaScript literals.
+- Data: Plan artifact HTML template and Workshop artifact HTML template — Update embedded design-token synchronization comments to defer the complete template and test roster to `scripts/embed-cds-tokens.ts`.
+- Skill: Whiteboard — Reworks collaborative boards around publish-driven scene inspection, main-loop watch registration, full-page hash and code-authenticity checks, a fast acknowledgement followed by the complete drawn answer, conflict-safe merges, and explicit authorship boundaries for Claude's marks.
+- System Prompt: Coordinator mode orchestration — Renames successful worker summaries from “completed” to “finished” and distinguishes workers stopped at their turn limit as partial results that can be continued by task ID.
+- System Prompt: Project timeline user message provenance — Recognizes the server-recorded timeline reply directly beneath a coordinator message as a narrowly scoped user reply, while limiting bare approvals to the one action and target the coordinator actually proposed and excluding option lists, vague retries, and post-block specificity inheritance.
+- System Reminder: Directory sync live checkout guidance — Adds standing cloud-only exceptions for dot-led paths, dependency and build outputs, and credential-like filenames, and warns that the user's machine never receives dot-led files from the session even when they are committed.
+- Tool Descriptions: Artifact assets, supporting files, and unsupported supporting-file errors — Allow text assets such as CSV, Markdown, JSON, and plain text, require using returned asset URLs verbatim and supporting-file paths without a leading slash, and generalize unsupported-file diagnostics to their runtime file label.
+- Tool Description: Artifact publishing and update guidance and Tool Parameter: Artifact watch actions guidance — Allow `watch` to arm comment auto-replies when session auto-replies are enabled and the user supplied an editable Artifact link, while continuing to forbid arming on view-only pages.
+- Tool Description: Artifact type discovery guidance — Requires listing account-published Artifact types before loading a skill or writing a file for presentations, reader-facing documents, and visual designs; prefers a fitting type unless the user specifically needs a file format, and lists types before answering availability questions.
+- Tool Descriptions: `memory_list` and `memory_write` — Reframe stores as available to the session rather than necessarily connected, clarify that only project stores are shared with collaborators, and retain secret-write refusal across every store.
+
+#### [2.1.245](https://github.com/Piebald-AI/claude-code-system-prompts/commit/f5060ac)
+
+<sub>_No changes to the system prompts in v2.1.245._</sub>
+
+#### [2.1.243](https://github.com/Piebald-AI/claude-code-system-prompts/commit/8daa909)
+
+<sub>_No changes to the system prompts in v2.1.243._</sub>
+
+# [2.1.242](https://github.com/Piebald-AI/claude-code-system-prompts/commit/e28b8de)
+
+_+30,636 tokens_
+
+- **NEW:** System Prompt: Project timeline user message provenance — Treats server-verified project-owner timeline markers as direct user turns while keeping coordinator relays, fetched project content, other participants, and context-free approvals untrusted.
+- **NEW:** System Reminder: Directory sync guidance and notices — Adds mode-specific guidance for synced git checkouts, live uncommitted checkouts, and plain folders, including exclusions, conflict and deletion behavior, transfer budgets, stale or one-way files, branch-name collisions, and branch switches that park prior agent work.
+- **NEW:** System Reminder: Artifact comment reply session collision — Reports when another live session yields, claims, or may duplicate automatic replies for the same Artifact without letting Claude stop either watch on its own.
+- **NEW:** Tool Description: Artifact type discovery and creation guidance and System Reminder: Artifact type instructions trust boundary — Adds listing, inspection, and creation from published Artifact types while confining third-party type instructions to the new Artifact's files and the user's requested scope.
+- **NEW:** Data: Artifact host MCP server guidance — Documents how locally configured MCP servers can be exposed to Artifacts as `host:<server>`, excludes Claude app built-ins and Claude.ai connectors, and warns that viewers need the same local server connected.
+- Data: Artifact MCP connector guidance — Requires every declared connector server to name a non-empty tool allowlist and directs publishers to omit or clear MCP capabilities rather than treating an empty list as unrestricted access.
+- Tool Description: Artifact — Narrows Artifact creation to durable, team-facing decisions and other content that benefits from a shared page, while keeping immediate one-person advice in the terminal unless the user opts into publishing it.
+- Tool Description: Artifact database guidance — Adds multi-document batch writes with a single approval and atomic application where supported, preferring them over several individual writes.
+- Tool Description: Artifact identical resubmission refusal, Artifact supporting files guidance, Artifact publishing and update guidance, and Tool Parameter: Artifact force overwrite guidance — Require a fresh Artifact fetch before retrying a stale publish, define additive, replacement, and explicit-null file removal semantics and per-publish limits, and clarify that forcing discards the newer page while preserving unmentioned supporting files.
+- Tool Description: Artifact live room guidance and Artifact publishing and update guidance — Make room approval reusable for the same Artifact during a conversation, allow automatic rejoining until the user stops the room, and clarify client-specific watch restoration after resume or continue.
+- Tool Description: Computer request_access and Skill: Computer Use MCP — Add macOS and Windows framing, require Finder access for desktop, Dock, and Finder interactions, explain Windows UIPI restrictions on elevated processes, and distinguish application grants from automatically requested screen-takeover consent.
+- Tool Description: Computer computer_batch — Reworks coordinate guidance so every click and zoom in a batch uses the pre-call full-screen screenshot, permits screenshot and zoom actions with interleaved image results, and makes the latest returned full screenshot the reference for the next call.
+- **REMOVED:** Tool Description: device_bash and Tool Description: device_bash (opening) — Remove the standalone descriptions for sandboxed shell execution on the user's local device.
+- Agent Prompt: Agent Hook — Explains that remotely served hook calls for another machine's session have no local conversation transcript to read.
+- Agent Prompt: Security monitor for autonomous agent actions — Adds authoritative Claude-in-Chrome navigation provenance, evaluates actions against the landed URL and ordered browsing path, and treats sensitive actions on unexpected origins as suspect.
+- Skill: Dynamic pacing loop execution, Skill: `/loop` self-pacing mode, autonomous loop tick prompts, and Tool Description: ScheduleWakeup delay and reason guidance — Require each continuing tick to report `noop: true` when nothing changed or `false` when work advanced, collapse consecutive no-op ticks in the terminal, and make ScheduleWakeup's no-op reporting unconditional alongside its cache-TTL-aware delay guidance.
+- System Prompt: Coordinator mode orchestration — Makes delegated workers inherit the session model, allowing an explicit model only when the user requested one and forbidding autonomous downshifts for substantive work.
+- System Reminder: Browser read-only access guidance — Updates the deferred Claude-in-Chrome tool prefix from `mcp__Claude_in_Chrome__*` to `mcp__claude-in-chrome__*`.
+- **NEW:** Data: Query result pending command count, Rate limit unified windows, and Upload device hook template request — Document queued user sends awaiting turns, per-window subscription utilization and reset snapshots, and vetted hook-template uploads that precede device-hook registration.
+- Agent Prompt: Status line setup — Clarifies that subscription rate-limit windows appear only while the API reports them and before their reset timestamps pass.
+- Data: Interrupt cancel queued parameter, Interrupt receipt still queued field, SDK cloud session init snapshot field, and SDK protocol capabilities field — Expand cancellation behavior for client-held and already delivered sends, document reattach frame ordering and unapplied host options, and replace the legacy CCR label with cloud-session terminology.
+- Data: Plugin eval and skill-doctor quick reference and reference — Add layered MCP server mocks, canned, fixture, guarded, error, and agent-driven responses, plus `mock_calls` grading, output, and mock-result diagnostics.
+- Data: Claude API reference — Python, Skill: Building LLM-powered applications with Claude, and Skill: Model migration guide — Update the current Sonnet example pricing from $3/$15 to $2/$10 per million input/output tokens.
+- Data: Platform availability, Skill: Building LLM-powered applications with Claude, and Skill: Model migration guide — Add beta server-side fallback availability on Claude Platform on AWS, distinguish the default and array-form beta headers, and remove first-party-API-only fallback guidance.
+- Skill: Building LLM-powered applications with Claude and Skill: Model migration guide — Replace separate tool-preamble and thinking-tag advice with a combined generic instruction, recommend starting effort at `high` and measuring before using `xhigh` or `max`, and add an immediate-visible-answer instruction for latency-sensitive chat and voice routes.
+- Skill: Design — Adds live-canvas editability refusal guidance, records interactive-artboard and editor text-style metadata, raises the default canvas height, and updates fixed-versus-flow PDF export and pagination behavior.
+- Data, skills, agent and system prompts, reminders, and tool descriptions — Broadly normalize rendered Unicode typography and notation to ASCII or textual equivalents, including dashes, arrows, ellipses, comparison signs, status and beta symbols, keyboard glyphs, and box-drawing diagrams.
+
+# [2.1.241](https://github.com/Piebald-AI/claude-code-system-prompts/commit/0260612)
+
+_+182 tokens_
+
+- **NEW:** Data: SDK set max thinking tokens request schema — Documents the `set_max_thinking_tokens` control request, including resetting an omitted or null token budget to the session default and optionally setting or clearing the session-scoped thinking display mode.
+
+# [2.1.240](https://github.com/Piebald-AI/claude-code-system-prompts/commit/18f32d7)
+
+_-1,911 tokens_
+
+- **NEW:** Tool Description: Agent (simple usage notes) — Adds concise Agent-tool guidance covering when to delegate, fork behavior, resuming agents, worktree isolation, background execution, parallel launches, and context restrictions.
+- Agent Prompt: Security monitor for autonomous agent actions (second part) — Expands Self-Modification protection to an explicit set of agent configuration paths, while treating `.claude/worktrees/<name>/` and unlisted project-specific `.claude/` directories as ordinary project files unless they contain protected configuration.
+- Agent Prompt: Worker fork — Clarifies that “default to forking” guidance belongs to the parent agent and that the fork must execute its directive directly without spawning another agent.
+- Tool Description: Snooze (delay and reason guidance) — Prohibits short-interval polling for harness-tracked background work, recommends a 1200-second-or-longer fallback heartbeat, and reserves short cache-preserving delays for external state such as CI runs, deployments, and remote queues.
+- Tool Description: Write (read existing file first) — Clarifies that Write is for creating files or fully replacing previously read files, while partial modifications should use Edit.
+
+# [2.1.239](https://github.com/Piebald-AI/claude-code-system-prompts/commit/50c563b)
+
+_+960 tokens_
+
+- **NEW:** Data: SDK MCP server errors field — Documents skipped `--mcp-config` entries on SDK init frames, including stable error categories, omitted affected servers, Remote Control bridge failures, and CI handling.
+- **NEW:** Data: SendMessage ambiguous recipient display — Restores user-facing “not sent” explanations for inexact or duplicate agent names, unavailable or truncated session searches, and recipients that require exact-name or pinned-identity confirmation.
+- **NEW:** Tool Description: Artifact content host network block guidance — Explains the Artifact content-host allowlist entry for personal and shared cloud environments and forbids republishing until Claude can read the live version.
+- **NEW:** Tool Description: Artifact files guidance — Adds `list_files` and `read_file` actions for multi-file Artifacts, defaulting reads to the scratchpad while reserving `out_dir` for user-requested destinations.
+- **NEW:** Tool Description: Artifact identical resubmission refusal, Tool Parameter: Artifact URL guidance, and Tool Parameter: Artifact force overwrite guidance — Require existing owned Artifact URLs for in-place updates, reject unchanged retries after stale-version conflicts, and reserve forced overwrites for explicit approval to discard a specific newer version.
+- **REMOVED:** Skill: Artifact slides and Skill: Artifact spreadsheet — Remove the standalone editable slide-deck and spreadsheet Artifact skills and their template-preservation workflows.
+- Agent Prompt: Security monitor for autonomous agent actions — Adds an unverifiable-deletion-scope soft block for runtime-computed destructive writes against shared or remote state, requiring a transcript-visible resolved target list or literal verified names within the user-approved scope.
+- Skill: `/insights` report output — Reworks the restored `/insights` flow into an exact unwrapped shareable-report handoff, replaces the additional-context injection with report-header context, and forbids adding, omitting, or rewording any line.
+- Tool Description: Artifact and Skill: Artifact design — Make HTML the default Artifact format, allowing Markdown only when a loaded skill explicitly requires it and converting shared Markdown documents into designed HTML pages rather than one-to-one transcriptions.
+- Tool Description: Artifact publishing and update guidance; Skill: Artifact PR review, Skill: Design, and Skill: Whiteboard — Move Artifact reads from WebFetch to `action: "read"`, returning owned pages as raw HTML and shared pages as isolated summaries—except same-session Slack-channel pages, which return full untrusted content—while updating dependent workflows to consume saved large-page results safely.
+- Tool Description: Artifact publishing and update guidance, Tool Description: Artifact runtime capabilities guidance, and Tool Parameter: Artifact watch actions guidance — Distinguish unavailable, durable-wake, and live watch modes; expand capability examples to live or connected data, shared state, viewer identity, Claude questions, added files, and self-saving pages; and require re-read, merge, and republish handling when local source falls behind a page-authored version.
+- Tool Description: Artifact live room guidance — Requires explicit per-publish approval to join a room and approval for every `room_send`, exposes joined rooms through status, and coalesces and caps incoming events so pages send summaries rather than streams.
+- Data: Artifact MCP connector guidance — Expands Artifact MCP manifests from claude.ai and host connectors to include built-in connector guidance while retaining exact upstream-tool-name discovery.
+- Data: Claude API reference — Python and Skill: Anthropic Python SDK 0.x to 1.x upgrade — Switch timeout and custom-client guidance to `anthropic.Timeout`/`httpx2`, expand `output_format` migration coverage, and preserve supported older-model sampling parameters through `extra_body` instead of deleting them blindly.
+- Data: Background tasks changed event schema, SDK protocol capabilities field, Interrupt cancel queued parameter, Interrupt receipt still queued field, and SDK subagent stats schema — Add reinitialize snapshots for live background tasks, hosted-session exceptions to cancel-queued receipts, and held-back-result timing details for cost, duration, model usage, and subagent totals.
+- System Prompt: Coordinator mode orchestration and Tool Description: ListAgents — Add capability-aware user-message routing, `blocked` worker outcomes, concise launch updates when no communications role exists, and teammates as addressable agents.
+- System Reminder: Previously invoked skills — Broadens the post-compaction warning so request or argument text anywhere in restored skill bodies, including “User Request” sections, is historical context rather than a new live instruction.
+- System Prompt: Interactive agent intro and System Prompt: Harness instructions — Add a collaborative-goals identity branch when no output style is active, alongside the existing software-engineering framing.
+- Tool Description: Bash (Git commit and PR creation instructions) — Corrects generated pull-request bodies so summary and test-plan templates appear under their matching headings and optional attribution follows the test plan.
+- System Prompt: Auto memory durable lesson instructions — Adds a runtime note about the configured memory directory alongside the persistent-memory introduction.
+
+# [2.1.238](https://github.com/Piebald-AI/claude-code-system-prompts/commit/d2f451b)
+
+_+3,292 tokens_
+
+- **NEW:** Data: SDK subagent stats schema — Documents cumulative per-session Agent-tool subagent counts by launch mode, type, nesting, outcome, and refusal, including reset, background-lifecycle, remote-launch, and result-stream timing caveats.
+- **NEW:** Data: Self-hosted runner deferred shutdown timing notice — Explains deferred session release and fallback drain timing, supervisor stop-timeout sizing, forced-kill consequences, and second-signal behavior.
+- **NEW:** Data: VCS state changed branch field — Defines the optional best-effort branch hint for commit and push events, including per-branch events for multi-branch pushes and uncertain-attribution cases.
+- **NEW:** Tool Description: Artifact live room guidance — Adds transient, at-most-once rooms for live Artifact viewers, with untrusted event handling, bounded `room_send` broadcasts, peer-status results, and guidance to use republishes or the artifact database for durable state.
+- **NEW:** Tool Description: Artifact runtime verification guidance — Adds post-publish `verify` diagnostics for console output, uncaught errors, failed resources, and capability calls, while treating viewer-reported diagnostics as untrusted data and no-viewer results as inconclusive.
+- Data: Artifact MCP connector guidance — Allows supported sessions to expose locally configured MCP servers to Artifacts as `host:<server>`, while warning that they work only for viewers with the same local server connected.
+- Data: Self-hosted runner command help — Adds command- and file-backed `Proxy-Authorization` header injection for egress proxies, including per-connection refresh, child-process proxy rewriting, secret-handling, and orchestrator limitations.
+- Data: Self-hosted runner command help and System Prompt: Self-hosted runner doctor — Document `--defer-shutdown-max-min`, which stops new assignments while attached sessions continue until release or the ceiling, then parks or drains them under explicit signal, grace-period, and supervisor-timeout rules.
+- Data: VCS state changed event schema — Clarifies that a push updating several branches emits one push event per branch.
+- Skill: Artifact PR review and Skill: Artifact PR review (composed publish flow) — Harden decision-island extraction by anchoring searches to the full JSON script opening tag and reading from its end, avoiding collisions with prose that merely mentions the island ID.
+- Skill: Artifact document — Stops requiring in-page status chips and author, date, or version metadata, treats those details as Artifact-owned chrome, and removes the related self-checks.
+- Skill: Design — Expands canvas authoring with no-human-in-loop defaults, visible direction-selection artboards, `Main.dc.html` handoff rules, data-visualization routing, factual sample-value constraints, print dimensions, frame-fit and optional browser checks, image-basename and generic-name validation, template-binding and per-artboard-state caveats, static-artboard guidance, and required `file_path`, description, and favicon metadata on every publish.
+- Skill: Prototype — Makes Artifact `verify` the sanctioned post-publish runtime check when available and warns that an empty no-viewer result does not prove the demo works.
+- System Prompt: Artifact comment result guidance, Tool Description: Artifact comments guidance, and Tool Parameter: Artifact comment actions guidance — Require Claude activation for both replying to and resolving a comment thread, leaving non-activated threads for the commenter to resolve even after Claude addresses them elsewhere.
+- System Prompt: Artifact comment thread framing — Adds untrusted multi-file page markers to identify which Artifact file a thread anchors to, and explicitly avoids assuming the main page when attribution is degraded.
+- System Prompt: Coordinator mode orchestration — Adds capability-aware Skill-tool guidance alongside the existing workflow-tool notes.
+- System Reminder: Artifact auto-replies resumed, Tool Parameter: Artifact watch actions guidance, and Tool Description: Artifact publishing and update guidance — Distinguish interruption pauses that keep the watch from killed or unwatched stops, answer comments sent during a pause after resuming, and recognize an “already registered” result as evidence of a remote watch.
+- System Reminder: Output style active — Escapes the displayed active-style value as untrusted text and reads the turn reminder from the active style configuration.
+- Tool Description: Artifact publishing and update guidance and Tool Description: Artifact runtime capabilities guidance — Document per-artifact browser storage for lightweight per-viewer conveniences, require failure-safe access, and prefer shared runtime capabilities for state that must be durable, cross-viewer, or readable by Claude.
+
+# [2.1.237](https://github.com/Piebald-AI/claude-code-system-prompts/commit/9c96204)
+
+_+1,249 tokens_
+
+- **NEW:** System Prompt: Auto mode Slack message provenance — Treats bound-thread Slack relays that open with the server-verified human marker as direct user intent capable of clearing soft blocks, while bot-attributed or nested cross-session relays remain untrusted and cannot establish consent or launder permissions.
+- **NEW:** System Prompt: Concise output style — Defines the built-in Concise style to lead with results, omit narration and repeated recaps, use short plain answers by default, and preserve requested detail and correctness, including full error reports, failing-test output, security warnings, and destructive-action confirmations.
+- **NEW:** Tool Description: Poll — Adds an idle wait for queued harness events, returning pending events immediately and yielding to new user input, while defining authoritative envelope provenance, untrusted event content, nonce manifests, transcript-replay compatibility, and oldest-first chunked delivery.
+
+# [2.1.236](https://github.com/Piebald-AI/claude-code-system-prompts/commit/e39d195)
+
+_+26,676 tokens_
+
+- **NEW:** Agent Prompt: Security monitor host-context line guidance and Data: Hook classifier context field — Distinguish live host-attached user statements, which may satisfy a soft-block consent bar, from restored or mixed host context, which remains unverified; define call binding, trust, size, timing, and rewrite-integrity rules, and integrate the guidance into the autonomous-action monitor.
+- **NEW:** Data: SDK register device hooks request schema — Documents how cloud device clients register forwarded hooks and vetted worker-side templates, including the size limit, worker-epoch handling, and retryable versus terminal registration errors.
+- **NEW:** Skill: Anthropic Python SDK 0.x to 1.x upgrade — Adds an executable migration workflow for the Python 3.10 floor, `httpx2`, removed deprecated APIs and parameters, raw-response and streaming changes, Bedrock region handling, verification, and user-owned migration decisions, with `/claude-api upgrade` routing and an authoritative migration-guide source.
+- **NEW:** System Reminder: Artifact auto-replies resumed — Reports that a requested Artifact comment auto-reply resume is re-arming the live watch, explains which comments from the stopped period will be handled based on the stop cause, and warns that the stop persists until reconnection succeeds.
+- **NEW:** System Reminder: Artifact type page untrusted content warning — Treats HTML supplied by an owned Artifact's type publisher as untrusted data that cannot grant instructions or permission escalation.
+- **NEW:** System Reminder: Background task notification with concurrent user input — Separates an automated background-task event from genuine user input delivered in the same turn and prevents the notification from being treated as approval or consent.
+- **REMOVED:** System Reminder: Ultrareview launch acknowledgement — Removes the standalone acknowledgement prompt for already-visible cloud review launches and remembered `--fix` intent.
+- Agent Prompt: Managed Agents onboarding flow; Data: Managed Agents self-hosted sandboxes, memory stores reference, and related Managed Agents/AWS references — Expand self-hosted SDK-worker guidance with single-item handling, safe shutdown and file confinement, synchronized memory stores and recovery, resource and deployment constraints, and Claude Platform on AWS authentication, session-duration, and memory-store limitations.
+- Data: Managed Agents tools and skills and related Managed Agents references — Add per-tool `web_search` and `web_fetch` domain filters, search location and fetch-size settings, validation and runtime behavior, typed-SDK configuration changes, multiagent restriction layering, and guidance that these tools run server-side rather than under environment networking rules.
+- Data: Managed Agents events and steering and Data: Managed Agents overview — Document the Console session viewer's searchable transcript, timeline, raw events, tool/resource/thread inspection, cost views, JSON export, and event deep links.
+- Data: Plugin eval and skill-doctor reference — Requires every eval case to provide an execution prompt, treating it as the resumed session's next user turn when a history file is also supplied.
+- Skill: Artifact document — Clarifies that publishing assigns comment-anchor block IDs, the editor assigns IDs to user-added blocks, and existing IDs must still be preserved rather than copied or hand-authored unnecessarily.
+- System Prompt: Artifact comment reply composer — Makes change-request reply guidance conditional instead of always prescribing a generic work-in-progress acknowledgement, while retaining brief plain-text answers and prohibitions on claiming completed edits.
+- Tool Description: Artifact database guidance — Adds file-backed database reads via `out_dir` and writes via a local JSON `file_path` so large or numerous documents need not be returned or retyped inline.
+- Tool Description: Artifact publishing and update guidance and Tool Parameter: Artifact watch actions guidance — Add terminal and web paths for reopening artifacts, distinguish watch arming from an established connection, limit comment wakes to armed auto-replies, restore at most one watch after resume or continue, and tighten status-based claims about active watches.
+- Tool Description: Edit, Tool Description: Edit single replacement, and Tool Description: Write — Make read-before-edit and read-before-overwrite guidance path-sensitive, explicitly retaining the prior-Read requirement for files outside the working directory.
+- Tool Description: SendMessage cross-session guidance — Adds one-shot `notify_when_idle` subscriptions for local sessions, including pure subscriptions, approval-held notices, expiry behavior, and guidance to use them instead of polling or status-chasing messages.
+
+# [2.1.235](https://github.com/Piebald-AI/claude-code-system-prompts/commit/e9b6b49)
+
+_+6,990 tokens_
+
+- **NEW:** Data: SendMessage ambiguous recipient display — Adds user-facing “not sent” explanations for inexact or duplicate agent names, incomplete session searches, and recipients that need exact-name or pinned-identity confirmation.
+- **NEW:** System Prompt: Artifact comment fast acknowledgement selection — Selects one canned pre-reply acknowledgement from editability, trigger history, and whether the newest comment asks for a specific edit, broader inspection, or a thread-only answer, with a safe ambiguity and off-topic fallback.
+- **NEW:** System Prompt: Non-fork subagent delegation examples — Consolidates synchronous and background delegation examples into capability-aware guidance that suppresses default-agent examples when general-purpose agents are unavailable.
+- **NEW:** System Reminder: Ultrareview launch acknowledgement — Briefly acknowledges an already-visible cloud review without repeating its details, preserves `--fix` intent, and relates later findings to review notes the cloud pass cannot see.
+- **REMOVED:** System Prompt: Background subagent delegation examples and System Prompt: Foreground subagent delegation examples — Remove the separate execution-mode variants superseded by the capability-aware non-fork delegation prompt.
+- Data: Plugin eval and skill-doctor quick reference, Data: Plugin eval and skill-doctor reference, and Skill: Plugin eval authoring interview — Promote configurable `--eval-dir` suites from upcoming to current behavior, document containment-checked plugin discovery and result placement, teach the interview to honor custom suite paths and treat plugin paths as data, and distinguish tool-free negative checks from file-content graders that require an existing file.
+- Skill: Artifact document — Adds block-ID rules that keep viewer comments anchored, preserve editor-generated IDs across edits, strip IDs from duplicated blocks, and reserve hand-written IDs for short in-page link targets.
+- System Prompt: Forked agent guidance and Tool Description: Agent (when to launch subagents) — Make omitted `subagent_type` behavior conditional on general-purpose-agent availability, add plan-specific subagent restrictions, and provide fallback instructions when the general-purpose type is unavailable.
+- Tool Description: Artifact database guidance — Updates current-viewer identity lookup from `claude.user.id()` to `id()` on the page’s `user` capability.
+
+# [2.1.234](https://github.com/Piebald-AI/claude-code-system-prompts/commit/373b98c)
+
+_+11,405 tokens_
+
+- **NEW:** Data: SDK cloud session init snapshot field, Data: SDK control cancel request schema, Data: SDK request user dialog kind field, and Data: SDK result message schema — Document cloud-session attachment and directory-sync state, cancellation of in-flight control requests, capability-negotiated user-dialog kinds, and the turn-complete result contract.
+- **NEW:** Data: syncClaudeAiSkills setting — Documents how `false` disables account-synced skills across user, managed, workspace, and invocation scopes, including hiding, trash cleanup, re-enablement, and unsupported project-setting behavior.
+- **NEW:** Data: VCS state changed event schema — Restores the best-effort repository cache-invalidation event with working-directory hints, stricter push-branch attribution, and caveats for silenced or backgrounded mutations.
+- **NEW:** Skill: Claude guide unavailable reference fallback — Adds an embedded live-source index and WebFetch fallback when the Claude guide's on-disk reference files cannot be written.
+- **NEW:** Tool Description: Artifact assets guidance — Adds upload, list, read, reference, and permanent-delete guidance for files in artifacts that declare the `assets` capability.
+- **NEW:** Tool Parameter: Artifact watch actions guidance — Adds action-level guidance for watch, unwatch, status, durable remote wakes, comment wakes, and explicitly authorized `resume_replies` behavior.
+- **REMOVED:** Skill: Build with Claude API (reference guide) — Removes the redundant standalone quick-task navigation prompt; the primary Claude API skill retains its integrated reading guide.
+- **REMOVED:** System Reminder: File modification detected (budget exceeded) and System Reminder: File modified by user or linter — Remove the standalone reminders for externally modified files and omitted modification snippets.
+- **REMOVED:** System Reminder: MCP resource no displayable content — Consolidates the no-displayable-content case into the generalized MCP resource status reminder.
+- Agent Prompt: Coding session title generator and Agent Prompt: Session title and branch generation — Shift titles to specific, two-to-five-word noun phrases that omit generic task verbs and abstract action labels, retain recognizable identifiers, and follow the user's language while keeping branch names in English.
+- Agent Prompt: Status line setup — Adds GitLab merge-request metadata and labeling alongside GitHub pull-request status-line support.
+- Data: Artifact decision component script, Data: Workshop artifact HTML template, and Skill: Artifact components — Harden verifier-pinned decision scripts against ambiguous script tags, quoted-attribute boundaries, escaped script states, and non-ASCII whitespace while refreshing the blessed digest.
+- Data: Plugin eval and skill-doctor quick reference and Data: Plugin eval and skill-doctor reference — Promote image judging to current behavior, document binary-grading remedies, strengthen sandbox isolation from host repositories and project settings, and add plugin-load advisories, authentication-partial results, richer quiet-JSON diagnostics, and SIGTERM handling.
+- Skill: Plugin eval authoring interview — Makes tools and execution budgets follow each grader's actual side effects, rejects pilots whose plugin failed to load or whose graders cannot pass with granted tools, and adds image and binary-artifact grading guidance.
+- Skill: Building LLM-powered applications with Claude — Clarifies that cited language and shared reference paths are external skill files that must be read on demand before relying on them.
+- Skill: Artifact design, Skill: Design, Skill: Prototype, and Tool Description: Artifact publishing and update guidance — Allow Google Fonts stylesheets and font files as the sole external-host exception, require fallback stacks, and note export fallbacks where applicable.
+- Skill: Artifact document, Skill: Artifact slides, and Skill: Artifact spreadsheet — Switch collaborative editing to explicit whole-artifact saves under the `artifact` capability, distinguish write-access and view-only behavior, preserve reader changes through conflict-safe rereads, remove obsolete server-owned `data-id` restrictions, support structural slide edits, and make spreadsheet scratch cells persist when saved.
+- Skill: Artifact PR review and Skill: Artifact PR review (composed publish flow) — Make decision controls the default unless a display-only page was requested, and clarify that connector-backed live PR data—not artifact saving alone—is what restricts external sharing.
+- Skill: Design — Pins every canvas publish to runtime contract `0.1.31`, asks whether app concepts should be static or clickable, leaves publish approval to the tool and handles refusals without unsafe retries, preserves existing capability declarations on updates, clarifies that export—not saving—limits sharing to the organization, and favors a concise handoff followed by a content-focused second pass.
+- System Prompt: Artifact comment list framing and System Prompt: Artifact comment thread framing — Add trusted attribution for comments posted through an artifact's own interface, treating sent comments as the account holder's request while asking when they conflict with directly typed feedback.
+- System Prompt: Coordinator mode orchestration — Adapts peer-tool and post-launch instructions to available capabilities and identifies worker results inside harness-generated system reminders without reproducing their wrapper or XML.
+- System Reminder: Compact file reference, System Reminder: File opened in IDE, System Reminder: File truncated, System Reminder: Large PDF read guidance, and System Reminder: Lines selected in IDE — Escape untrusted filenames before interpolation and soften the instruction about mentioning file truncation.
+- System Reminder: MCP resource no content — Escapes server and URI attributes and generalizes the rendered resource status to cover both no-content and no-displayable-content cases.
+- Tool Description: Artifact comments guidance and Tool Description: Artifact publishing and update guidance — Detect when remote artifact watching is unavailable, avoid claiming an active watch, and direct users to `claude --watch-artifact <url>` on their own machine.
+
+# [2.1.233](https://github.com/Piebald-AI/claude-code-system-prompts/commit/2f5e820)
+
+_+27,728 tokens_
+
+- **NEW:** Data: Plugin eval and skill-doctor quick reference and Data: Plugin eval and skill-doctor reference — Add condensed and comprehensive offline guidance for early-access `claude plugin eval`, `eval init`, and `/skill-doctor`, covering enablement, suite authoring, graders, run options, result and report formats, sandboxing, CI, and troubleshooting.
+- **NEW:** System Prompt: Plugin eval enabled-session status — Announces when plugin eval is enabled and gives the exact `CLAUDE_CODE_WALNUT_SPIRE=1` fallback for clients and CI that cannot receive the organization rollout, with supported shell, user-settings, and managed-settings locations and a warning not to rely on project settings.
+- Agent Prompt: Claude Code guide, Agent Prompt: Claude guide agent, Data: Claude Code live documentation sources, Data: Claude Code recent changes reference, and Skill: Claude Code configuration guide — Route plugin-evaluation and skill-diagnostics questions through current-build checks and the new offline references, distinguish `/skill-doctor` from linting, and warn against stale-memory answers, guessed documentation URLs, or invented enablement variables.
+- Data: Artifact decision component script, Data: Workshop artifact HTML template, and Skill: Artifact components — Update decision controls to acquire artifact publishing through the asynchronous viewer 0.2 `claude.use('artifact')` API, retain viewer 0.1 `artifact`/`self` compatibility, arm only after capability availability, and refresh the verifier-pinned digest.
+- Data: Claude Code gateway protocol — Relays Anthropic 400/413 error messages needed for client recovery such as auto-compaction while continuing to sanitize other upstream messages and preserve error types.
+- Skill: Artifact document — No longer presents document artifacts as supporting selection-based comments or requires hidden comment-store machinery, while preserving live editing and reframing review language around feedback.
+- Skill: /doctor slash command and Skill: /doctor slash command description — Add diagnosis of malformed skill YAML frontmatter, explaining that parse failures drop every field and trigger fallback naming and descriptions while silently disabling tool, model, and invocation settings.
+- Skill: Plugin eval authoring interview — Keeps every calibration pilot and re-pilot private with `--no-publish` and tells users how to keep final full-suite reports local.
+- System Reminder: Team Coordination and Tool Description: SendMessage — Make task-list resources and coordination instructions conditional on available task tooling and allow legacy status updates in plain prose when those tools are absent.
+- Tool Description: WebFetch, Tool Description: WebFetch (concise), and Tool Description: WebFetch private URL warning — Derive cache-expiry text at render time instead of hard-coding 15 minutes.
+
+# [2.1.232](https://github.com/Piebald-AI/claude-code-system-prompts/commit/a21a614)
+
+_+48,736 tokens_
+
+- **NEW:** Agent Prompt: Web fetch agent usage guidance and Agent Prompt: Web reading specialist — Add a dedicated WebFetch delegation flow that returns focused, source-grounded reports from untrusted pages, supports follow-up questions about already-read content, and confines binary-file handling to harness-reported tool-results paths.
+- **NEW:** Skill: Artifact components and Data: Artifact decision component assets — Add reusable, verifier-pinned decision blocks for non-workshop HTML artifacts, including canonical design tokens, styles, markup, and scripts for persisted selections and readback, plus composition and injection-safety constraints.
+- **NEW:** System Prompt: Artifact comment fast acknowledgement — Adds a no-tools, single-sentence acknowledgement under 160 characters before the full comment response, distinguishing change requests from questions while preserving plain-text and internal-handling restrictions.
+- **NEW:** System Reminder: Bound conversation activity authority warning — Treats bound-conversation edits and reactions as awareness-only, never as fresh instructions, approval, consent, or a way around a denial, while still allowing relevant activity to inform work in progress.
+- **NEW:** Tool Description: Background monitor push notification guidance — Directs background monitors to push only events that materially change what the user should do next, such as a new error or a status transition they were awaiting.
+- **REMOVED:** Agent Prompt: /code-review workflow routing and System Prompt: Code review artifact publishing instructions — Remove the standalone prompts for routing `/code-review` through a background workflow and publishing its findings as a shareable Artifact.
+- **REMOVED:** Agent Prompt: WebFetch summarizer — Removes the inline page-content summarizer superseded by the dedicated web-reading agent flow.
+- **REMOVED:** Data: VCS state changed event schema — Removes the standalone schema for best-effort repository-state cache-invalidation events emitted after detected foreground VCS mutations.
+- Agent Prompt: Security monitor for autonomous agent actions (second part) — Extends real-browser protections to Chrome tools reached through the remote-device bridge and hard-blocks attacks on recognizable third-party systems outside the task's trust boundary unless an exercise or authorized engagement designates the target.
+- Agent Prompt: Worker fork — Updates the fork agent's availability description from the “fork experiment” to the “fork gate.”
+- Data: Managed Agents multiagent sessions — Removes the temporary exclusion of Fable advisors so valid pairings mirror the Messages advisor-tool pairing table.
+- Data: Workshop artifact HTML template; Skill: Artifact PR review, Skill: Artifact PR review (composed publish flow), Skill: Design, and Skill: Whiteboard — Migrate self-update guidance and clients to the `artifact` capability spelling while retaining legacy `self` compatibility, and clarify that design canvases open ready to edit but cannot retain changes when artifact publishing is unavailable.
+- Skill: Artifact design and Tool Description: Artifact — Require design calibration before writing both HTML and Markdown artifacts, treating format as a deliberate choice and forbidding Markdown as a speed shortcut while preserving the workshop-specific exceptions.
+- Skill: Prototype — Adds logic-first prototypes with full-state walkthroughs for behavior questions, requires every prototype to state one design question, verifies source-derived shell bytes against trusted registry digests before reuse, and keeps structurally distinct exploratory variants in one artifact until a direction is chosen.
+- System Prompt: Artifact comment edit composer — Aligns edit replies with the shared plain-text formatting and internal-handling nondisclosure restrictions used by comment replies and fast acknowledgements.
+- System Reminder: Artifact comment reply activation failure and Tool Parameter: Artifact comment actions guidance — Clarify that comment-thread activation survives artifact republishes and renames, while deactivation or thread deletion can clear it.
+- Tool Description: ListAgents and Tool Description: SendMessage cross-session guidance — Clarify that exact live names deliver across local, remote, and cloud sessions, that references are only for ambiguity or lookup failures, and that cloud sessions can receive messages but cannot yet reply to another session.
+- Tool Description: SendFeedback drafting guidance — Tightens feedback privacy by replacing personal identifiers with roles, excluding customer channel IDs and excerpts, constraining file-path evidence, and describing suspected vulnerabilities without working exploits or extraction steps.
+
+#### [2.1.231](https://github.com/Piebald-AI/claude-code-system-prompts/commit/fd3c642)
+
+<sub>_No changes to the system prompts in v2.1.231._</sub>
+
+# [2.1.229](https://github.com/Piebald-AI/claude-code-system-prompts/commit/37fb9dc)
+
+_+24,422 tokens_
+
+- **NEW:** Agent Prompt: Pull request creation and Agent Prompt: Quick git commit — Add focused workflows for opening one GitHub pull request from existing commits and creating one local commit, with preloaded repository context, platform-correct multiline formatting, attribution hooks, pre-commit checks, and explicit git-safety boundaries.
+- **NEW:** Data: Command plugin source command field — Defines command-backed plugin sources as platform-shell commands that emit exactly one absolute plugin-directory path, finish populating it before exit, and are re-resolved for installs, updates, and once-per-session background checks before being copied into cache.
+- **NEW:** Data: Sandbox network domain spelling warning — Explains canonical domain and bracketed-IPv6 spellings and the conservative allow/deny behavior applied to malformed sandbox network entries until they are corrected.
+- **NEW:** Skill: Artifact slides — Adds live, editable presentation-deck artifacts with a slide rail, direct editing, speaker notes, comments, presentation and print modes, projection-oriented composition rules, and template-preservation requirements.
+- **NEW:** Skill: Design and Skill: Design description — Add Claude Design canvas artifacts for editable multi-artboard UI, marketing, social, and print layouts, including source-grounded design-system matching, reusable components, canvas organization, explicit save/export capability handling, and safe updates to existing canvases.
+- **NEW:** Skill: Prototype description — Adds a dedicated trigger for working proof-of-concept artifacts, including explicitly requested demonstrations of a new feature in place on an existing app.
+- **NEW:** System Reminder: Queued notifications delivery and Tool Description: ReadNotifications — Add authoritative, oldest-first draining of queued GitHub activity, scheduled triggers, and cross-session messages; require prompt handling when notified, pagination until the queue is empty, sender-based trust decisions, and verification of surprising relayed content.
+- **NEW:** Tool Description: Artifact unsupported supporting file error — Explains why an unsupported supporting-file media type prevents publication, distinguishes page-served assets from viewer downloads, and points file handoff to an available runtime capability instead of inert download links.
+- **NEW:** Tool Description: PowerShell (git guidance) — Adds reusable PowerShell git guidance to prefer new commits, seek safer alternatives before destructive operations, and never bypass hooks or signing without an explicit user request.
+- **REMOVED:** Skill: Artifact PR review description — Removes the standalone PR-review trigger description; the full Artifact PR review skills remain.
+- **REMOVED:** Skill: Code walkthrough, Skill: PR explainer, and Skill: PR explainer artifact-template mode — Remove the dedicated interactive code-walkthrough and pull-request walkthrough artifact workflows.
+- Agent Prompt: Quick PR creation — Requires `gh pr edit` to omit a pull-request number or URL so `gh` resolves and updates the current branch's pull request.
+- Data: Claude Code gateway protocol — Requires gateways to emit their own `event: ping` during silent streaming gaps because SDK iterators drop upstream pings and Bedrock sends none, preventing long thinking pauses from tripping client or proxy idle timeouts.
+- Data: Code change published event schema — Broadens the event framing from a session-associated pull or merge request to any code change sent for review, including other providers in internal builds, while retaining its repeatable, best-effort, verify-before-trust semantics.
+- Data: SDK protocol capabilities field — Adds the `queued_notifications` capability so backends can detect whether the CLI accepts queued-notification stream messages and drains them through `ReadNotifications`.
+- Data: Self-hosted runner command help — Marks `--base-dir` as required on Windows, where the runner has no default checkout directory.
+- Skill: Artifact PR review, Skill: Artifact PR review (composed publish flow), and Skill: Artifact PR review description (composed publish flow) — Remove routing to the retired `pr-explainer` workflow while preserving the distinction between structured review briefings and narrative walkthroughs.
+- Skill: Prototype and Skill: Prototype runtime capabilities guidance — Introduce sketch, clickable, and wired fidelity levels with a clickable default; support privacy-checked screenshot overlays or source-matched shells for explicitly requested in-app concepts; allow per-region promotion; classify live data, actions, and file saving as wired capabilities; and require an approved must-have/nice-to-have/cut brief before turning an accepted prototype into production code.
+- System Prompt: Artifact comment list framing — Adds optional file/page anchor guidance alongside selected-text and anchor-path context while preserving the untrusted-viewer-data boundary.
+- Tool Description: Artifact database guidance — Adds private per-viewer storage under `data/users/`, with `me` resolving to the current viewer's user ID and requiring the published artifact to declare both `user` and `db` capabilities.
+- Tool Description: Artifact publishing and update guidance and Tool Description: Artifact runtime capabilities guidance — Make remote-session watches durable wake subscriptions for republishes and, where granted, comments; warn that viewer sandboxes block page-initiated downloads; and route files intended for viewers to save through an available runtime capability.
+- Tool Description: Bash (Git commit and PR creation instructions) — Applies the full commit and pull-request safety workflow consistently instead of switching to abbreviated git guidance when the commit command is loaded, retaining explicit commit and push consent, targeted staging, new-commit recovery after hook failures, and limits on unrelated exploration.
+- Tool Description: PowerShell — Replaces generic command notes with PowerShell-edition-specific syntax and detected developer-tool context, adds background-execution and sleep-avoidance guidance, and separates reusable git safety guidance from the main tool prompt.
+- Tool Description: Workflow — Clarifies that concurrent agent capacity is calculated from available CPUs rather than raw CPU-core count.
+
+# [2.1.228](https://github.com/Piebald-AI/claude-code-system-prompts/commit/b718060)
+
+_+7,141 tokens_
+
+- **NEW:** Data: Claude Code gateway customer-routed inference protocol — Defines offline validation of short-lived, audience-bound CRI JWTs; operator-credential upstream forwarding without credential relay; response-header and error-body hygiene; stable capability-rejection recovery tokens; policy-block responses; discovery metadata; and fixed Messages API endpoint behavior.
+- **NEW:** Skill: Artifact document — Adds creation guidance for live, editable word-processor-style document artifacts with status and ownership metadata, block-level edits, inline comments, stable updates, and preservation of the template's editor machinery.
+- **NEW:** Skill: Artifact spreadsheet — Adds creation guidance for live, editable spreadsheet artifacts with persistable rows, cell editing, formulas, sorting, comments, status metadata, and preservation of the template's editor machinery.
+- **REMOVED:** Agent Prompt: Bash command prefix detection — Removes the standalone policy prompt that extracted allowlistable command prefixes and flagged suspected command injection.
+- Data: Self-hosted runner command help — Documents a non-disableable grace hold that keeps a just-finished background task in flight until the follow-up turn reading its result starts, bounded by `SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS` and falling back to the default when zero or unusable.
+- Skill: Artifact design, Skill: Prototype, Skill: Whiteboard, and Tool Description: Artifact — Tighten artifact naming around short, distinctive, product-style titles, keep explainers in descriptions rather than dash- or colon-appended title suffixes, and rename topical boards as `<topic> whiteboard` instead of `Whiteboard — <topic>`.
+- System Prompt: Artifact comment list framing and System Prompt: Artifact comment thread framing — Add optional anchor-path guidance to comment lists and keep thread instructions synchronized with the runtime anchor-path marker while continuing to treat viewer-influenced paths and element snippets as untrusted data.
+- Tool Description: ListAgents — Clarifies that Remote Control-connected account listings cover both sessions on other machines and cloud sessions, with each row labeled by kind.
+
+# [2.1.227](https://github.com/Piebald-AI/claude-code-system-prompts/commit/1314a83)
+
+_+6,757 tokens_
+
+- **NEW:** Agent Prompt: Artifact comment thread analyst and System Prompt: Artifact comment thread triage — Add a read-only, single-thread analysis brief for edit composition and classify the newest human request as an artifact edit or a reply-only pipeline action.
+- **NEW:** System Prompt: Artifact comment result guidance and Tool Parameter: Artifact comment actions guidance — Add focused thread reads, comment-list pagination, activated-thread reply rules, and precise resolve semantics for addressed, open, and already-resolved threads.
+- **NEW:** Agent Prompt: `/ultrareview` GitHub comment poster — Publishes one plain pull-request comment containing the review findings, omitted-finding count, locations, and a run deduplication marker; trims long finding text to stay under 40,000 characters and forbids all other writes.
+- **NEW:** Data: Auto-compact inputs changed event schema — Documents worker-resolved auto-compaction state emitted at boot, after resolved-setting changes and conversation resets, and re-checked at each turn start so thin-client countdowns follow the effective trigger, while noting turn-scoped model-override divergence.
+- **NEW:** System Reminder: Project memory disconnected — Marks prior connected-store lists, shared indexes, and memory-tool results stale after disconnect or failed reconnection; directs re-checking with `memory_list` and falls back to personal memory when available.
+- **NEW:** Tool Description: `device_bash` — Runs fresh non-interactive shells on the user's device under its Claude Code sandbox, with launch-directory-relative paths, bounded timeout and concurrency, and refusal when device sandboxing is disabled.
+- **NEW:** Tool Description: ProposeGoal — Proposes evaluator-verifiable completion conditions for multi-turn work without blocking progress, requires approval unless the user explicitly requested the exact outcome, avoids retrying declined proposals, and replaces any active goal when accepted.
+- **REMOVED:** Tool Description: Code review command — Removes the dedicated tool-description prompt for review targets, effort levels, inline pull-request comments, and working-tree fix mode.
+- Agent Prompt: `/schedule` slash command and Tool Description: RemoteTrigger prompt — Add `list_runs` and `get_run_log` diagnostics for routine sessions, explain why pre-session refusals and existing-session posts may leave no new run row, and treat remote run titles and logs as untrusted data.
+- Data: Claude Code gateway protocol — Documents optional per-user usage-cap headers and 75%/95% notices, stripping upstream rate-limit headers, and non-retryable `429 billing_error` responses that preserve the gateway's reset and remediation message.
+- Data: VCS state changed event schema — Allows the cache-invalidation event's otherwise minimal payload to include the branch acted on while consumers continue re-reading head and pull-request state.
+- System Prompt: Artifact comment edit composer, System Prompt: Artifact comment reply composer, and Tool Description: Artifact comments guidance — Feed read-only analyst briefs into edits, keep replies free of backend session/thread/flag machinery, acknowledge requested edits as work in progress rather than merely flagged, apply resolved-thread reply guidance, and resolve only feedback that was actually addressed.
+- Tool Description: Artifact and Tool Description: Artifact publishing and update guidance — Require an HTML `<title>` near the top because only the first 8KB is scanned, and recover an earlier artifact's URL through listing or the user instead of accidentally publishing a separate artifact and announcing a new link.
+- System Prompt: Self-hosted runner setup and System Prompt: Self-hosted runner doctor — Update onboarding and diagnostic paths for environment keys, runner/session activity, retries, and health indicators to the canonical Admin settings → Cloud environments UI while identifying the older Claude Code settings surface as transitional.
+- Tool Description: Agent (usage notes) — Restricts foreground agents to cases where the very next action depends on their result and no other useful work can proceed, keeping independent, fire-and-forget, and interruptible work in the background.
+- Tool Description: SendUserFile — Broadens file delivery beyond final deliverables, sends complete drafts or meaningful updates as they are produced, excludes scratch files and incremental-save noise, and re-sends only materially changed files.
+- System Prompt: Action safety and truthful reporting, System Prompt: Autonomous operation guidelines, and System Prompt: Memory instructions — Replace dash-heavy wording with clearer sentence, parenthetical-example, and frontmatter-description punctuation while preserving the underlying safety, evidence, and memory instructions.
+- System Prompt: Outcome-first communication style — Cleans up list and calibration punctuation and generalizes the warning against reviewer-directed comments from noise after a pull request merges to noise after any change merges.
+
 #### [2.1.226](https://github.com/Piebald-AI/claude-code-system-prompts/commit/daeea64)
 
 <sub>_No changes to the system prompts in v2.1.226._</sub>
